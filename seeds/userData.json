@@ -1,17 +1,34 @@
 [
   {
-    "name": "Sal",
-    "email": "sal@hotmail.com",
-    "password": "password12345"
+    "email": "jgat@aol.com",
+    "username": "joegotago",
+    "f_name": "Joe",
+    "l_name": "Gatto",
+    "password": "password12345",
+    "fitness_tier": "2"
   },
   {
-    "name": "Lernantino",
-    "email": "lernantino@gmail.com",
-    "password": "password12345"
+    "email": "valsal@hotmail.com",
+    "username": "imabutterfly",
+    "f_name": "Joe",
+    "l_name": "Gatto",
+    "password": "password12345",
+    "fitness_tier": "1"
   },
   {
-    "name": "Amiko",
-    "email": "amiko2k20@aol.com",
-    "password": "password12345"
+    "email": "james.s.murray@themurr.org",
+    "username": "murrrrrr",
+    "f_name": "James",
+    "l_name": "Murray",
+    "password": "password12345",
+    "fitness_tier": "3"
+  },
+  {
+    "email": "bq@temp-mail.org",
+    "username": "thebigq",
+    "f_name": "Brian",
+    "l_name": "Quinn",
+    "password": "password12345",
+    "fitness_tier": "2"
   }
 ]

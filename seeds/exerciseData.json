@@ -1,0 +1,75 @@
+[
+  [
+    {
+      "name": "Jumping rope",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "body_only",
+      "difficulty": "intermediate",
+      "instructions": "Hold an end of the rope in each hand. Position the rope behind you on the ground. Raise urn the rope over your head bringing it down in front of you. When it reaches the ground, jump over it. Finace that can be maintained. Different speeds and techniques can be used to introduce variation. Rope jumpinllenges your coordination, and requires a lot of energy. A 150 lb person will burn about 350 calories jumpiutes, compared to over 450 calories running."
+    },
+    {
+      "name": "Stair climber",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "machine",
+      "difficulty": "intermediate",
+      "instructions": "To begin, step onto the stepmill and select the desired option from the menu. You can ching, or you can select a program to run. Typically, you can enter your age and weight to estimate the amouned during exercise. Use caution so that you don't trip as you climb the stairs. It is recommended that yoip on the handles so that you don't fall. Stepmills offer convenience, cardiovascular benefits, and usualt than running outside while offering a similar rate of calories burned. They are typically much harder thaipment. A 150 lb person will typically burn over 300 calories in 30 minutes, compared to about 175 calories"
+    },
+    {
+      "name": "Bicycling",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "other",
+      "difficulty": "intermediate",
+      "instructions": "To begin, seat yourself on the bike and adjust the seat to your height. Wear protective ible injury. Ensure that you are courteous to vehicles and pedestrians, and that you obey the rules of the ers convenience, cardiovascular benefits, and has less impact than other activities. A 150 lb person will bries cycling at a moderate rate for 30 minutes, compared to 450 calories or more running."
+    },
+    {
+      "name": "Rower",
+      "type": "cardio",
+      "muscle": "middle_back",
+      "equipment": "machine",
+      "difficulty": "intermediate",
+      "instructions": "To begin, seat yourself on the rower. Make sure that your heels are resting comfortably f the foot pedals and that the straps are secured. Select the program that you wish to use, if applicable. d bend forward at the hips. There are three phases of movement when using a rower. The first phase is when n the rower. Your knees are bent and against your chest. Your upper body is leaning slightly forward while good posture.Next, push against the foot pedals and extend your legs while bringing your hands to your uppe squeezing your shoulders back as you do so. To avoid straining your back, use primarily your leg and hip muy phase simply involves straightening your arms, bending the knees, and bringing your body forward again asck into the first phase."
+    },
+    {
+      "name": "Elliptical trainer",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "machine",
+      "difficulty": "intermediate",
+      "instructions": "To begin, step onto the elliptical and select the desired option from the menu. Most ellipticals have a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate calories burned during exercise. Elevation can be adjusted to change the intensity of the workout. The handles monitor your heart rate to help you stay at an appropriate intensity. Ellipticals offer convenience, cardio benefits, and have far less impact on joints than ground-based cardio such as running. A 150 lb person will burn on average 300-400 calories in 30 minutes, compared to more than 450-700 calories running. It's recommended that you use the arms to create more movement, if your elliptical has them."
+    },
+    {
+      "name": "Stairmaster",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "machine",
+      "difficulty": "intermediate",
+      "instructions": "To begin, step onto the Stairmaster and select the desired option from the menu. You can choose a manual setting, or you can select a program to run. Typically, you can enter your age and weight to estimate the amount of calories burned during exercise. Pump your legs up and down in an established rhythm, driving the pedals down but not letting your feet hit the floor. It is recommended that you maintain your grip on the handles so that you don't fall. The handles monitor your heart rate to help you stay at an appropriate intensity. Stairmasters offer convenience, cardio benefits, and usually have less impact than running outside. They are typically much harder than other cardio equipment and will typically burn over 300 calories in 30 minutes, compared to about 175 calories walking."
+    },
+    {
+      "name": "Burpee",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "body_only",
+      "difficulty": "intermediate",
+      "instructions": "Begin standing with your legs shoulder-width apart. Place your hands on the floor and kick your feet back so you end up with your stomach and thighs on the floor. Your elbows should be bent. From this position, push up by doing a push-up and push your hips up. Jump your feet under your hips and stand. Finish the movement by jumping and bringing your hands over your head. Repeat."
+    },
+    {
+      "name": "Trail Running/Walking",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "body_only",
+      "difficulty": "intermediate",
+      "instructions": "Running or hiking on trails will get the blood pumping and heart beating almost immediately, but it's important to have good shoes. While you use the muscles in your calves and buttocks to pull yourself up a hill, the knees absorb the bulk of the pounding coming back down. Take smaller steps as you walk downhill, keep your knees bent to absorb the impact and slow down to avoid falling. A 150 lb person can burn over 200 calories for 30 minutes walking uphill, compared to 175 on a flat surface. If running the trail, a 150 lb person can burn well over 500 calories in 30 minutes."
+    },
+    {
+      "name": "Skating",
+      "type": "cardio",
+      "muscle": "quadriceps",
+      "equipment": "other",
+      "difficulty": "beginner",
+      "instructions": "Roller skating is a fun activity which can be effective in improving cardiorespiratory fitness and muscular endurance. It requires relatively good balance and coordination. It is necessary to learn the basics of skating including turning and stopping and to wear protective gear to avoid possible injury. You can skate at a comfortable pace for 30 minutes straight. If you want a cardio challenge, do interval skating – speed skate two minutes of every five minutes, using the remaining three minutes to recover. A 150 lb person will typically burn about 175 calories in 30 minutes skating at a comfortable pace, similar to brisk walking."
+    }
+  ]
