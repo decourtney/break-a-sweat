@@ -4,31 +4,27 @@
     "username": "joegotago",
     "f_name": "Joe",
     "l_name": "Gatto",
-    "password": "password12345",
-    "fitness_tier": "2"
+    "password": "password"
   },
   {
     "email": "valsal@hotmail.com",
     "username": "imabutterfly",
     "f_name": "Joe",
     "l_name": "Gatto",
-    "password": "password12345",
-    "fitness_tier": "1"
+    "password": "password"
   },
   {
     "email": "james.s.murray@themurr.org",
     "username": "murrrrrr",
     "f_name": "James",
     "l_name": "Murray",
-    "password": "password12345",
-    "fitness_tier": "3"
+    "password": "password"
   },
   {
     "email": "bq@temp-mail.org",
     "username": "thebigq",
     "f_name": "Brian",
     "l_name": "Quinn",
-    "password": "password12345",
-    "fitness_tier": "2"
+    "password": "password"
   }
 ]

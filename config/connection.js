@@ -18,6 +18,4 @@ if (process.env.JAWSDB_URL) {
   );
 }
 
-
-console.log("test from Manny!");
 module.exports = sequelize;
