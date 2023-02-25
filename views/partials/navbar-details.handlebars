@@ -1,47 +1,47 @@
-<section id="navHeader" class="flex flex-row w-full">
-  <nav
-    class="flex items-center justify-between flex-wrap w-full bg-blue-900 p-6 lg:justify-center lg:grid lg:grid-cols-5  lg:grid-flow-col">
+<nav
+  class="flex items-center justify-between flex-wrap w-full bg-primary-500 p-6 lg:justify-center lg:grid lg:grid-cols-5  lg:grid-flow-col">
 
-    <div id="menu-toggle" class="aboslute lg:hidden flex items-center flex-shrink-0 text-white mr-6">
-      <button
-        class="flex items-center px-3 py-2 border rounded text-white border-white hover:text-white hover:border-white">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 7h20v2H0V10zm0 7h20v2H0v-2z" />
-        </svg>
-      </button>
+  <div id="menu-toggle" class="aboslute lg:hidden flex items-center flex-shrink-0 mr-6">
+    <button
+      class="flex items-center px-3 py-2 border-2 rounded border-primary bg-secondary-500 text-primary-900 hover:bg-primary-100 hover:text-secondary-800 active:bg-secondary-200">
+      <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <title>Menu</title>
+        <path d="M0 3h20v2H0V3zm0 7h20v2H0V10zm0 7h20v2H0v-2z" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="menu-items"
+    class="hidden max-w-fit items-center text-center justify-end bg-transparent lg:flex lg:col-span-1">
+    <a href="#menu-option-1"
+      class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 border-primary bg-primary-500 text-secondary-100 hover:bg-primary-100 hover:text-secondary-800 active:bg-secondary-200 lg:bg-secondary-500 lg:text-secondary-900">
+      Menu
+    </a>
+    <a href="#menu-option-2"
+      class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 border-primary bg-primary-500 text-secondary-100 hover:bg-primary-100 hover:text-secondary-800 active:bg-secondary-200 lg:bg-secondary-500 lg:text-secondary-900">
+      Menu
+    </a>
+    <a href="#menu-option-3"
+      class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 border-primary bg-primary-500 text-secondary-100 hover:bg-primary-100 hover:text-secondary-800 active:bg-secondary-200 lg:bg-secondary-500 lg:text-secondary-900">
+      Menu
+    </a>
+    <a href="#forums"
+      class="block border px-1 ml-4 mb-1 mr-4 rounded lg:hidden lg:mt-0 border-primary bg-primary-500 text-secondary-100 hover:bg-primary-100 hover:text-secondary-800 active:bg-secondary-200 lg:bg-secondary-500 lg:text-secondary-900">
+      Forums
+    </a>
+  </div>
+
+  <div class="flex items-center mx-auto lg:justify-center lg:col-span-3">
+    <span class="font-semibold text-xl tracking-tight lg:text-center">BREAK A SWEAT</span>
+  </div>
+
+  <div class="flex justify-end">
+    <div id="forums"
+      class="hidden border w-fit px-1 ml-4 mb-1 rounded mr-4 lg:mt-0 lg:block lg:col-span-1 border-primary bg-primary-500 text-secondary-100 hover:bg-primary-100 hover:text-secondary-800 active:bg-secondary-200 lg:bg-secondary-500 lg:text-secondary-900">
+      <a href="#forums" class="">Forums</a>
     </div>
+  </div>
 
-    <div id="menu-items" class="hidden max-w-fit items-center text-center justify-end bg-transparent lg:flex lg:col-span-1">
-      <a href="#menu-option-1"
-        class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 bg-blue-900 text-white hover:text-white hover:bg-blue-500 active:bg-blue-900">
-        Menu
-      </a>
-      <a href="#menu-option-2"
-        class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 bg-blue-900 text-white hover:text-white hover:bg-blue-500 active:bg-blue-900">
-        Menu
-      </a>
-      <a href="#menu-option-3"
-        class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 bg-blue-900 text-white hover:text-white hover:bg-blue-500 active:bg-blue-900">
-        Menu
-      </a>
-      <a href="#forums"
-        class="block border px-1 ml-4 mb-1 mr-4 rounded lg:inline-block lg:mt-0 bg-blue-900 text-white hover:text-white hover:bg-blue-500 active:bg-blue-900">
-        Forums
-      </a>
-    </div>
+</nav>
 
-    <div class="flex items-center mx-auto lg:justify-center lg:col-span-3">
-      <span class="font-semibold text-xl tracking-tight lg:text-center">BREAK A SWEAT</span>
-    </div>
-
-    <div class="flex justify-end">
-      <div id="forums"
-        class="hidden border w-fit px-1 ml-4 mb-1 rounded mr-4 lg:mt-0 lg:block lg:col-span-1 bg-blue-900 text-white hover:text-white hover:bg-blue-500 active:bg-blue-900">
-        <a href="#forums" class="text-white hover:text-white">Forums</a>
-      </div>
-    </div>
-
-  </nav>
-</section>
 <script src="./js/navbar.js"></script>
