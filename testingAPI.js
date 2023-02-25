@@ -9,11 +9,10 @@ let muscle = 'biceps'
 // Don't need to save any of this to the DB. Leave to api calls when performing calculations
 'https://api.api-ninjas.com/v1/nutrition?query=' // search for a foods nutritional facts
 
-
 // Don't need to save any of this to the DB. Leave to api calls when performing calculations
 'https://api.api-ninjas.com/v1/caloriesburned?' // query calorie burn by activity, weight, duration
 
-fetch('https://api.api-ninjas.com/v1/exercises?type=cardio', {
+fetch('https://api.api-ninjas.com/v1/exercises?type=strength&muscle=triceps&difficulty=beginner', {
   method: 'GET',
   headers: {
     'X-Api-Key': key,

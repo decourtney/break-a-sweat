@@ -46,10 +46,6 @@ User.init(
       validate: {
         len: [8],
       },
-    },
-    fitness_tier: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
     },   
   },
   {

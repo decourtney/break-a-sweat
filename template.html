@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- Include the Tailwind CSS framework -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css">
-    <style>
-        /* Customize the background color */
-        body {
-            background-color: #E2E8F0;
-        }
-    </style>
+    <title>Break-a-Sweat</title>
+  
+
 </head>
 <body>
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h1 class="text-3xl font-semibold mb-6 text-gray-800">Login</h1>
-            <form class="space-y-4">
+            <form id="login-form" class="space-y-4">
+                <div id="err-msg" class="flex flex-wrap w-min min-w-full">
+                    <span class="invisible">Error Message</span>
+                </div>
                 <div class="flex flex-col space-y-1">
                     <label for="username" class="text-gray-700 font-medium">Username</label>
                     <input type="text" id="username" name="username" placeholder="Enter your username" class="border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-400">

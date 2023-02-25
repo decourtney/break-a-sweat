@@ -1,42 +1,46 @@
-<div class="row">
-  <div class="col-md-6">
-    <h2>Login</h2>
+{{!-- Login Form --}}
+<div class="flex w-full justify-center" id="login">
+  <section class="h-screen">
+    <div class="px-6 h-full text-gray-800">
+      <div class="flex flex-col justify-center items-center flex-wrap h-full g-6">
+        <div class="">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="w-full max-w-lg" alt="Sample image" />
+        </div>
+        <div class="flex justify-center">
 
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="email-login">email:</label>
-        <input class="form-input" type="text" id="email-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">password:</label>
-        <input class="form-input" type="password" id="password-login" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">login</button>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-6">
-    <h2>Signup</h2>
+          <form id="login-form" class="space-y-4">
+            <div id="err-msg" class="flex flex-wrap w-min min-w-full">
+              <span class="invisible">Error Message</span>
+            </div>
+            <div class="flex flex-col space-y-1">
+              <label for="username" class="text-gray-700 font-medium">Email</label>
+              <input type="text" id="email-login" name="email-login" placeholder="Enter your email"
+                class="border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-400">
+            </div>
+            <div class="flex flex-col space-y-1">
+              <label for="password" class="text-gray-700 font-medium">Password</label>
+              <input type="password" id="password-login" name="password-login" placeholder="Enter your password"
+                class="border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-400">
+            </div>
+            <div class="flex justify-between items-center">
+              <button
+                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none focus:ring focus:ring-blue-400">Login</button>
+              <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-500 hover:text-blue-500 focus:text-blue-500 focus:outline-none">Forgot
+                  Password</a>
+                <a href="#"
+                  class="text-gray-500 hover:text-blue-500 focus:text-blue-500 focus:outline-none">Register</a>
+              </div>
+            </div>
+          </form>
 
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="name-signup">name:</label>
-        <input class="form-input" type="text" id="name-signup" />
+        </div>
       </div>
-      <div class="form-group">
-        <label for="email-signup">email:</label>
-        <input class="form-input" type="text" id="email-signup" />
-      </div>
-      <div class="form-group">
-        <label for="password-signup">password:</label>
-        <input class="form-input" type="password" id="password-signup" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">signup</button>
-      </div>
-    </form>
-  </div>
+    </div>
+  </section>
 </div>
+
+{{!-- Registration Form --}}
 
 <script src="./js/login.js"></script>

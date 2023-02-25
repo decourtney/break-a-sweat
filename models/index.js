@@ -1,19 +1,19 @@
 const User = require('./User');
 const Exercise = require('./Exercise');
-const UserExercise = require('./UserExercise');
+const UserFavorite = require('./UserFavorite');
 
 User.belongsToMany(Exercise, {
   through: {
-    model: UserExercise,
+    model: UserFavorite,
   },
-  as: 'user_exercises'
+  as: 'user_favorites'
 });
 
 Exercise.belongsToMany(User, {
     through: {
-      model: UserExercise,
+    model: UserFavorite,
     },
-    as: 'exercised_users'
+    as: 'favorites_user'
 });
 
-module.exports = { User, Exercise };
+module.exports = { User, Exercise, UserFavorite };
