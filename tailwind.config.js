@@ -7,43 +7,43 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#f0f7fc', // backgrounds
-          100: '#c2e0f6', // backgrounds, borders
-          200: '#94c9f0', // backgrounds, borders
-          300: '#66b2ea', // backgrounds, borders
-          400: '#388be3', // buttons, links, icons
-          500: '#0076dd', // Primary color, buttons, links, icons
-          600: '#0069c4', // buttons, links, icons
-          700: '#005da3', // buttons, links, icons
-          800: '#005083', // buttons, links, icons
-          900: '#003e5d', // buttons, links, icons
+          50: '#FBE0D9',
+          100: '#F6C1B7',
+          200: '#F09F94',
+          300: '#EB7D72',
+          400: '#E55B50',
+          500: '#E03A2E', // Primary color
+          600: '#B03024',
+          700: '#80201A',
+          800: '#501011',
+          900: '#200007',
         },
         secondary: {
-          50: '#f5f8fa', // backgrounds
-          100: '#d9e5eb', // backgrounds, borders
-          200: '#bfd2dc', // backgrounds, borders
-          300: '#a5becd', // backgrounds, borders
-          400: '#8baabf', // buttons, links, icons
-          500: '#7cb8e8', // Secondary color, buttons, links, icons
-          600: '#6098b7', // buttons, links, icons
-          700: '#4d7a94', // buttons, links, icons
-          800: '#365c6f', // buttons, links, icons
-          900: '#1f3d4c', // buttons, links, icons
+          50: '#FEF8F8',
+          100: '#FCE0E1',
+          200: '#F9C1C6',
+          300: '#F6A2AC',
+          400: '#F38391',
+          500: '#F06476', // Secondary color
+          600: '#C04B5C',
+          700: '#813143',
+          800: '#40202A',
+          900: '#100005',
         },
         text: {
-          primary: '#2d3748', // Primary text
-          secondary: '#718096', // Secondary text
-          accent: '#0076dd', // Same as primary color
-          inverse: '#ffffff', // Text on dark backgrounds
+          primary: '#405a74', // Text color
+          secondary: '#b2c3c2',
+          accent: '#E03A2E', // Same as primary color
+          inverse: '#FFFFFF',
         },
       },
       borderColor: {
-        primary: 'rgba(0, 118, 221, 0.5)', // Borders for primary color elements
-        secondary: 'rgba(124, 184, 232, 0.5)', // Borders for secondary color elements
+        primary: 'rgba(224, 58, 46, 0.5)',
+        secondary: 'rgba(240, 100, 118, 0.5)',
       },
       ringColor: {
-        primary: 'rgba(0, 118, 221, 0.5)', // Rings for primary color elements
-        secondary: 'rgba(124, 184, 232, 0.5)', // Rings for secondary color elements
+        primary: 'rgba(224, 58, 46, 0.5)',
+        secondary: 'rgba(240, 100, 118, 0.5)',
       },
     },
   },

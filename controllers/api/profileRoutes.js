@@ -1,13 +1,15 @@
 const router = require('express').Router();
-const { Project } = require('../../models');
+const { User, Exercise, UserFavorite } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-router.post('/', withAuth, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const newProject = await Project.create({
       ...req.body,
       user_id: req.session.user_id,
     });
+
+    const userFavorites = await UserFavorite.
 
     res.status(200).json(newProject);
   } catch (err) {
