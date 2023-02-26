@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+  </head>
+  <body>
+    <div
+      class="min-h-screen py-40"
+      style="
+        background-image: linear-gradient(
+          180deg,
+          rgba(255, 222, 215, 1) 0%,
+          rgba(179, 198, 194, 1) 100%
+        );
+      "
+    >
+      <div class="container mx-auto data-te-toggle='modal'">
+        <div
+          class="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+            <div class="w-full lg:w-1/2 flex flex-col items-center justify-center p-12 bg-no-repeat bg-cover bg-center" style="background-image: url('src/image/loginpic.jpg');">
+            <!-- <h1 class="text-neptune text-3xl mb-4">Welcome</h1> -->
+            <div>
+              <p class="mb-72 text-white text-2xl text-center bg-neptune bg-opacity-50">
+                Welcome to Break Sweat! <br> <span class="text-lg"> Create an
+                account to experience the full benefits of our app and start
+                crushing your fitness and nutrition goals.</span>
+              </p>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 py-16 px-12">
+            <h2  class="text-3xl mb-4 text-neptune">Register</h2>
+            <p class="mb-4">
+              Create your account. It’s free and only take a minute
+            </p>
+            <form action="#">
+              <div class="grid grid-cols-2 gap-5">
+                <input type="text" placeholder="First Name" class="border border-gray-400 py-1 px-2">
+                <input type="text" placeholder="Last Name" class="border border-gray-400 py-1 px-2">
+              </div>
+              <div class="mt-5">
+                <input type="text" placeholder="Email" class="border border-gray-400 py-1 px-2 w-full">
+              </div>
+              <div class="mt-5">
+                <input type="password" placeholder="Password" class="border border-gray-400 py-1 px-2 w-full">
+              </div>
+              <div class="mt-5">
+                <input type="password" placeholder="Confirm Password" class="border border-gray-400 py-1 px-2 w-full">
+              </div>
+              <div class="mt-5">
+                <input type="checkbox" class="border border-gray-400">
+                <span>
+                  I accept the <a href="#" class="text-neptune font-semibold">Terms of Use</a> &  <a href="#" class="text-neptune font-semibold">Privacy Policy</a> 
+                </span>
+              </div>
+              <div class="mt-5">
+                <button class="w-full bg-strikemaster py-3 text-center text-white">Register Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
