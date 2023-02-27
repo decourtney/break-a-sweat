@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Exercise, User, UserFavorite } = require('../models');
 const withAuth = require('../utils/auth');
+const getRandomExercises = require('../utils/apiService');
 
 // Root Route
 router.get('/', async (req, res) => {
@@ -18,51 +19,64 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) =>
-{
-  try
-  {
+// This route is used for testing Data pulls
+// router.get('/', async (req, res) => {
+//   try {
+//     const exercises = await getRandomExercises();
 
+//     // console.log(exercises)
 
+//     res.render('profile', {
+//       exercises,
+//       partial: 'profile-main-details',
+//       logged_in: req.session.logged_in
+//     })
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
+router.get('/profile', withAuth, async (req, res) => {
+  try {
+    const exercises = await getRandomExercises();
 
     res.render('profile', {
+      exercises,
       partial: 'profile-main-details',
-      // ...user,
       logged_in: req.session.logged_in
     });
-  } catch (err)
-  {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
 
-router.get('/profle/favorites', withAuth, async (req, res) =>
-{
-  try
-  {
+router.get('/profile/favorites', withAuth, async (req, res) => {
+  try {
+    const favoritesData = await User.findByPk(3, {
+      include: {
+        model: Exercise,
+        attributes: ['id', 'name', 'type'],
+        as: 'user_favorites',
+      }
+    });
 
+    const favorites = favoritesData.user_favorites.map((favorite) => favorite.get({ plain: true }));
 
+    // console.log(favorites);
 
-
-    req.render('profile', {
+    res.render('profile', {
+      favorites,
       partial: 'favorites-details',
       logged_in: req.session.logged_in
-    })
-  } catch (err)
-  {
+    });
+  } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 
-router.get
-
-router.get('/login', (req, res) =>
-{
+router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
-  if (req.session.logged_in)
-  {
+  if (req.session.logged_in) {
     res.redirect('/');
     return;
   }

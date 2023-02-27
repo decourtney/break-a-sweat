@@ -19,4 +19,7 @@ module.exports = {
       return `<span for="img" aria-label="gear">⚙️</span>`;
     }
   },
+  concat: (string1, string2) => {
+    return string1 + string2;
+  }
 };

@@ -1,47 +1,32 @@
-const newFormHandler = async (event) => {
+const searchFormHandler = async (event) => {
   event.preventDefault();
+  let offset = 0;
 
-  const name = document.querySelector('#project-name').value.trim();
-  const needed_funding = document.querySelector('#project-funding').value.trim();
-  const description = document.querySelector('#project-desc').value.trim();
+  const searchResultsDiv = document.querySelector('#search-results');
 
-  if (name && needed_funding && description) {
-    const response = await fetch(`/api/projects`, {
-      method: 'POST',
-      body: JSON.stringify({ name, needed_funding, description }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const param = document.querySelector('#search-criteria').value.trim();
+  const val = document.querySelector('#search-term').value.trim();
 
-    if (response.ok) {
-      document.location.replace('/profile');
-    } else {
-      alert('Failed to create project');
+  if (param && val) {
+    try {
+      const response = await fetch('/api/profile/search', {
+        method: 'POST',
+        body: JSON.stringify({ param, val, offset }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      console.log(response.status)
+
+      if (response.ok) {
+        const newHTML = await response.text();
+        searchResultsDiv.innerHTML = newHTML;
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
-};
-
-const delButtonHandler = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
-
-    const response = await fetch(`/api/projects/${id}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      document.location.replace('/profile');
-    } else {
-      alert('Failed to delete project');
-    }
-  }
-};
+}
 
 document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
-
-document
-  .querySelector('.project-list')
-  .addEventListener('click', delButtonHandler);
+  .querySelector('#search-form')
+  .addEventListener('submit', searchFormHandler);
