@@ -3,11 +3,29 @@
     <p class="text-white">Left Section</p>
   </div>
   <div class="w-full md:w-2/3 p-6">
-    <a href="#previous-workouts"
-      class="block bg-white hover:bg-blue-500 text-blue-700 font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Previous
-      Workouts</a>
+    <a href="/profile/favorites"
+      class="block bg-white hover:bg-blue-500 text-blue-700 font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Favorites</a>
     <a href="#suggested-areas"
       class="block bg-white hover:bg-blue-500 text-blue-700 font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Suggested
       Areas</a>
   </div>
+  <form id="search-form">
+    <div class="form-group">
+      <label for="search-filter">Filter by:</label>
+      <select class="form-control" id="search-criteria">
+        <option value="name">Name</option>
+        <option value="type">Type</option>
+        <option value="muscle">Muscle</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="search-term">Search:</label>
+      <input type="text" class="form-control" id="search-term">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  <div id="search-results"></div>
 </div>
+
+<script src="/js/profile.js"></script>
