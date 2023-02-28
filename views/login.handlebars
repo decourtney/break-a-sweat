@@ -1,42 +1,40 @@
-<div class="row">
-  <div class="col-md-6">
-    <h2>Login</h2>
-
-    <form class="form login-form">
-      <div class="form-group">
-        <label for="email-login">email:</label>
-        <input class="form-input" type="text" id="email-login" />
-      </div>
-      <div class="form-group">
-        <label for="password-login">password:</label>
-        <input class="form-input" type="password" id="password-login" />
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">login</button>
-      </div>
-    </form>
+{{!-- Login Form --}}
+<div class="relative flex flex-col h-screen justify-center items-center">
+  <div class="h-3/5 ">
+    <img class="filter blur-sm" src="/images/vecteezy_gym-interior-with-people-doing-sport-exercises_13961888.svg" alt="Gym Interior"
+      width="1500px">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <img src="/images/breaksweatlogo.svg" alt="Break-a-Sweat Logo" width="1000px">
+    </div>
   </div>
-  <div class="col-md-6">
-    <h2>Signup</h2>
 
-    <form class="form signup-form">
-      <div class="form-group">
-        <label for="name-signup">name:</label>
-        <input class="form-input" type="text" id="name-signup" />
+  <div class="h-2/5 flex justify-center items-center">
+    <form id="login-form" class="space-y-4">
+      <div id="err-msg" class="flex flex-wrap w-min min-w-full">
+        <span class="invisible">Error Message</span>
       </div>
-      <div class="form-group">
-        <label for="email-signup">email:</label>
-        <input class="form-input" type="text" id="email-signup" />
+      <div class="flex flex-col space-y-1">
+        <label for="username" class="text-primary-800 font-medium">Email</label>
+        <input type="text" id="email-login" name="email-login" placeholder="Enter your email"
+          class="border border-primary p-2 rounded-lg focus:outline-none focus:ring focus:ring-primary">
       </div>
-      <div class="form-group">
-        <label for="password-signup">password:</label>
-        <input class="form-input" type="password" id="password-signup" />
+      <div class="flex flex-col space-y-1">
+        <label for="password" class="text-primary-800 font-medium">Password</label>
+        <input type="password" id="password-login" name="password-login" placeholder="Enter your password"
+          class="border border-primary p-2 rounded-lg focus:outline-none focus:ring focus:ring-primary">
       </div>
-      <div class="form-group">
-        <button class="btn btn-primary" type="submit">signup</button>
+      <div class="flex justify-between items-center">
+        <button
+          class=" py-2 px-4 rounded-lg bg-primary-500 text-primary-100 hover:bg-secondary-200 hover:text-primary-800 active:bg-primary-200">Login</button>
+        <div class="flex items-center space-x-4">
+          <a href="#" class="text-primary-800 hover:text-primary-500 active:text-primary-400">Register</a>
+        </div>
       </div>
     </form>
   </div>
 </div>
 
-<script src="./js/login.js"></script>
+
+{{!-- Registration Form --}}
+
+<script src="/js/login.js"></script>

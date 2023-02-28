@@ -16,10 +16,6 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,6 +24,22 @@ User.init(
         isEmail: true,
       },
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        not: /[-!$ %^&* ()_ +| ~=`{}\[\]:";'<>?,.\/]/,
+      }
+    },
+    f_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    l_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -35,14 +47,56 @@ User.init(
         len: [8],
       },
     },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: true,
+        min:16,
+        max: 120,
+      }
+    },
+    weight: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        isFloat:{
+          args:{
+            min: 0,
+            max: 1000,
+          },
+          msg: 'Weight must be between 0 and 1000',
+        }
+      }
+    },
+    height: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: true,
+        min: 0,
+        max: 120,
+      }
+    },
+    bmi: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        isFloat: true,
+        min: 0,
+        max: 100,
+      }
+    }   
   },
   {
     hooks: {
-      beforeCreate: async (newUserData) => {
+      beforeCreate: async (newUserData) =>
+      {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
-      beforeUpdate: async (updatedUserData) => {
+      beforeUpdate: async (updatedUserData) =>
+      {
         updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
         return updatedUserData;
       },
