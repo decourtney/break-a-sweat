@@ -4,27 +4,43 @@
     "username": "joegotago",
     "f_name": "Joe",
     "l_name": "Gatto",
-    "password": "password"
+    "password": "password",
+    "age": "46",
+    "height":"70",
+    "weight": "188",
+    "bmi": "26.97"
   },
   {
     "email": "valsal@hotmail.com",
     "username": "imabutterfly",
-    "f_name": "Joe",
-    "l_name": "Gatto",
-    "password": "password"
+    "f_name": "Sal",
+    "l_name": "Vulcano",
+    "password": "password",
+    "age": "46",
+    "height":"70",
+    "weight": "175",
+    "bmi": "25.11"
   },
   {
     "email": "james.s.murray@themurr.org",
     "username": "murrrrrr",
     "f_name": "James",
     "l_name": "Murray",
-    "password": "password"
+    "password": "password",
+    "age": "46",
+    "height":"71",
+    "weight": "172",
+    "bmi": "23.99"
   },
   {
     "email": "bq@temp-mail.org",
     "username": "thebigq",
     "f_name": "Brian",
     "l_name": "Quinn",
-    "password": "password"
+    "password": "password",
+    "age": "46",
+    "height":"70",
+    "weight": "176",
+    "bmi": "25.25"
   }
 ]

@@ -39,6 +39,7 @@ router.get('/', async (req, res) => {
 router.get('/profile', withAuth, async (req, res) => {
   try {
     const exercises = await getRandomExercises();
+    console.log(exercises);
 
     res.render('profile', {
       exercises,
@@ -72,6 +73,19 @@ router.get('/profile/favorites', withAuth, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+router.get('/profile/charts', withAuth, async (req,res) => {
+try{
+
+
+  res.render('charts-details.handlebars',{
+    partial: '',
+    logged_in: req.session.logged_in
+  })
+} catch (err) {
+  res.status(500).json(err);
+}
 });
 
 router.get('/login', (req, res) => {
