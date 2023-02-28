@@ -6,11 +6,8 @@ const getRandomExercises = require('../utils/apiService');
 // Root Route
 router.get('/', async (req, res) => {
   try {
-    if(!req.session.logged_in){
-      res.redirect('/login');
-    }
 
-    // Pass serialized data and session flag into template
+    // Load Homepage
     res.render('homepage', { 
       logged_in: req.session.logged_in 
     });

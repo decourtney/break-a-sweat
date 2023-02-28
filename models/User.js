@@ -30,6 +30,7 @@ User.init(
       unique: true,
       validate: {
         not: /[-!$ %^&* ()_ +| ~=`{}\[\]:";'<>?,.\/]/,
+        msg: 'Username can not contain special characters.'
       }
     },
     f_name: {
@@ -45,6 +46,7 @@ User.init(
       allowNull: false,
       validate: {
         len: [8],
+        msg: 'Password must be at least 8 characters'
       },
     },
     age: {
