@@ -19,6 +19,7 @@ const searchFormHandler = async (event) => {
 
       if (response.ok) {
         const newHTML = await response.text();
+        
         searchResultsDiv.innerHTML = newHTML;
       }
     } catch (error) {

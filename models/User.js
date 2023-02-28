@@ -46,7 +46,47 @@ User.init(
       validate: {
         len: [8],
       },
-    },   
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: true,
+        min:16,
+        max: 120,
+      }
+    },
+    weight: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        isFloat:{
+          args:{
+            min: 0,
+            max: 1000,
+          },
+          msg: 'Weight must be between 0 and 1000',
+        }
+      }
+    },
+    height: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isInt: true,
+        min: 0,
+        max: 120,
+      }
+    },
+    bmi: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      validate: {
+        isFloat: true,
+        min: 0,
+        max: 100,
+      }
+    }   
   },
   {
     hooks: {
