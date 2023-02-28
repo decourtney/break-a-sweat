@@ -1,17 +1,46 @@
 [
   {
-    "name": "Sal",
-    "email": "sal@hotmail.com",
-    "password": "password12345"
+    "email": "jgat@aol.com",
+    "username": "joegotago",
+    "f_name": "Joe",
+    "l_name": "Gatto",
+    "password": "password",
+    "age": "46",
+    "height":"70",
+    "weight": "188",
+    "bmi": "26.97"
   },
   {
-    "name": "Lernantino",
-    "email": "lernantino@gmail.com",
-    "password": "password12345"
+    "email": "valsal@hotmail.com",
+    "username": "imabutterfly",
+    "f_name": "Sal",
+    "l_name": "Vulcano",
+    "password": "password",
+    "age": "46",
+    "height":"70",
+    "weight": "175",
+    "bmi": "25.11"
   },
   {
-    "name": "Amiko",
-    "email": "amiko2k20@aol.com",
-    "password": "password12345"
+    "email": "james.s.murray@themurr.org",
+    "username": "murrrrrr",
+    "f_name": "James",
+    "l_name": "Murray",
+    "password": "password",
+    "age": "46",
+    "height":"71",
+    "weight": "172",
+    "bmi": "23.99"
+  },
+  {
+    "email": "bq@temp-mail.org",
+    "username": "thebigq",
+    "f_name": "Brian",
+    "l_name": "Quinn",
+    "password": "password",
+    "age": "46",
+    "height":"70",
+    "weight": "176",
+    "bmi": "25.25"
   }
 ]

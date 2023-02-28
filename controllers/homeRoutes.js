@@ -1,47 +1,49 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Exercise, User, UserFavorite } = require('../models');
 const withAuth = require('../utils/auth');
+const getRandomExercises = require('../utils/apiService');
 
+// Root Route
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
+    if(!req.session.logged_in){
+      res.redirect('/login');
+    }
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      projects, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(404).end();
   }
 });
 
-router.get('/project/:id', async (req, res) => {
+// This route is used for testing Data pulls
+// router.get('/', async (req, res) => {
+//   try {
+//     const exercises = await getRandomExercises();
+
+//     // console.log(exercises)
+
+//     res.render('profile', {
+//       exercises,
+//       partial: 'profile-main-details',
+//       logged_in: req.session.logged_in
+//     })
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+router.get('/profile', withAuth, async (req, res) => {
   try {
-    const projectData = await Project.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
+    const exercises = await getRandomExercises();
+    console.log(exercises);
 
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
+    res.render('profile', {
+      exercises,
+      partial: 'profile-main-details',
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -49,30 +51,47 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
-// Use withAuth middleware to prevent access to route
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/profile/favorites', withAuth, async (req, res) => {
   try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+    const favoritesData = await User.findByPk(3, {
+      include: {
+        model: Exercise,
+        attributes: ['id', 'name', 'type'],
+        as: 'user_favorites',
+      }
     });
 
-    const user = userData.get({ plain: true });
+    const favorites = favoritesData.user_favorites.map((favorite) => favorite.get({ plain: true }));
+
+    // console.log(favorites);
 
     res.render('profile', {
-      ...user,
-      logged_in: true
+      favorites,
+      partial: 'favorites-details',
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+router.get('/profile/charts', withAuth, async (req,res) => {
+try{
+
+
+  res.render('charts-details.handlebars',{
+    partial: '',
+    logged_in: req.session.logged_in
+  })
+} catch (err) {
+  res.status(500).json(err);
+}
+});
+
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/');
     return;
   }
 
