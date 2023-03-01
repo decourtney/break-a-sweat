@@ -1,40 +1,113 @@
-{{!-- Login Form --}}
-<div class="relative flex flex-col h-screen justify-center items-center">
-  <div class="h-3/5 ">
-    <img class="filter blur-sm" src="/images/vecteezy_gym-interior-with-people-doing-sport-exercises_13961888.svg" alt="Gym Interior"
-      width="1500px">
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <img src="/images/breaksweatlogo.svg" alt="Break-a-Sweat Logo" width="1000px">
-    </div>
-  </div>
-
-  <div class="h-2/5 flex justify-center items-center">
-    <form id="login-form" class="space-y-4">
-      <div id="err-msg" class="flex flex-wrap w-min min-w-full">
-        <span class="invisible">Error Message</span>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="username" class="text-primary-800 font-medium">Email</label>
-        <input type="text" id="email-login" name="email-login" placeholder="Enter your email"
-          class="border border-primary p-2 rounded-lg focus:outline-none focus:ring focus:ring-primary">
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="password" class="text-primary-800 font-medium">Password</label>
-        <input type="password" id="password-login" name="password-login" placeholder="Enter your password"
-          class="border border-primary p-2 rounded-lg focus:outline-none focus:ring focus:ring-primary">
-      </div>
-      <div class="flex justify-between items-center">
-        <button
-          class=" py-2 px-4 rounded-lg bg-primary-500 text-primary-100 hover:bg-secondary-200 hover:text-primary-800 active:bg-primary-200">Login</button>
-        <div class="flex items-center space-x-4">
-          <a href="#" class="text-primary-800 hover:text-primary-500 active:text-primary-400">Register</a>
+<div class="bg-body">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg">
+      <div class="bg-no-repeat bg-contain" style="background-image: url('/images/loginpic.jpg')">
+        <div class="bg-no-repeat bg-contain pt-36" style="background-image: url('/images/breaksweatlogo.png')">
+          <h1 class="text-3xl font-semibold mb-6 text-gray-800">Login</h1>
+          <form id="login-form" class="space-y-4">
+            <div class="flex flex-col space-y-1">
+              <label for="login-username" class="text-gray-700 font-medium">Username</label>
+              <input type="text" id="login-username" name="login-username" placeholder="Enter your username"
+                class="border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-400" />
+            </div>
+            <div class="flex flex-col space-y-1">
+              <label for="login-password" class="text-gray-700 font-medium">Password</label>
+              <input type="password" id="login-password" name="login-password" placeholder="Enter your password"
+                class="border border-gray-400 p-2 rounded-lg focus:outline-none focus:ring focus:ring-blue-400" />
+            </div>
+            <div class="flex justify-between items-center">
+              <button
+                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none focus:ring focus:ring-blue-400">
+                Login
+              </button>
+              <div class="flex items-center space-x-4 m-10">
+                <a href="#" class="text-gray-500 hover:text-blue-500 focus:text-blue-500 focus:outline-none">Forgot
+                  Password</a>
+                <button id="open-modal"
+                  class="text-gray-500 hover:text-blue-500 focus:text-blue-500 focus:outline-none">Register</button>
+              </div>
+            </div>
+            <div class="text-center" id="err-msg"></div>
+          </form>
         </div>
       </div>
-    </form>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content max-w-lg mx-auto overflow-y-auto bg-opacity-0">
+
+    <!-- CONTAINER DIV FOR REGISTRATION PAGE -->
+    <div class="container mx-auto">
+      <div class="flex flex-col lg:flex-row w-full bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+
+        <!-- LOGIN PIC ADDED -->
+        <div
+          class="w-full lg:w-1/2 flex flex-col items-center justify-center p-4 sm:p-12 bg-no-repeat bg-cover bg-center"
+          style="background-image: url('/images/loginpic.jpg')">
+          <div>
+            <p class="mb-2 sm:mb-72 text-white text-lg sm:text-2xl text-center bg-neptune bg-opacity-50">
+              Welcome to Break Sweat! <br />
+              <span class="text-sm sm:text-lg">
+                Create an account to experience the full benefits of our app
+                and start crushing your fitness and nutrition goals.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- REGISTRATION FORM -->
+        <div class="w-full lg:w-1/2 py-4 sm:py-16 px-4 sm:px-12">
+          <span class="close -translate-y-full">&times;</span>
+          <h2 class="text-3xl mb-4 text-neptune">Register</h2>
+          <p class="mb-4">
+            Create your account. It’s free and only take a minute
+          </p>
+          <form id="register-form" action="#">
+            <div class="grid grid-cols-2 gap-5">
+              <input id="reg-fname" type="text" placeholder="First Name" class="border border-gray-400 py-1 px-2" />
+              <input id="reg-lname" type="text" placeholder="Last Name" class="border border-gray-400 py-1 px-2" />
+            </div>
+            <div class="mt-5">
+              <input id="reg-email" type="text" placeholder="Email" class="border border-gray-400 py-1 px-2 w-full" />
+            </div>
+            <div class="mt-5">
+              <input id="reg-username" type="text" placeholder="Username"
+                class="border border-gray-400 py-1 px-2 w-full" />
+            </div>
+            <div class="mt-5">
+              <input id="reg-password1" type="password" placeholder="Password"
+                class="border border-gray-400 py-1 px-2 w-full" />
+            </div>
+            <div class="mt-5">
+              <input id="reg-password2" type="password" placeholder="Confirm Password"
+                class="border border-gray-400 py-1 px-2 w-full" />
+            </div>
+            <div class="mt-5">
+              <input type="checkbox" class="border border-gray-400" />
+              <span>
+                I accept the
+                <a href="#" class="text-neptune font-semibold">Terms of Use</a>
+                &
+                <a href="#" class="text-neptune font-semibold">Privacy Policy</a>
+              </span>
+            </div>
+            <div class="mt-5">
+              <button id="btn" class="w-full bg-strikemaster py-3 text-center text-white">
+                Register Now
+              </button>
+              <div id="err-msg" class="text-center">
+                <span class="invisible font-semibold text-red-500 drop-shadow-md">
+                  Error Message</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 
-{{!-- Registration Form --}}
-
 <script src="/js/login.js"></script>
+<script src="/js/register.js"></script>

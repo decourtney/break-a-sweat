@@ -29,7 +29,14 @@ User.init(
       allowNull: false,
       unique: true,
       validate: {
-        not: /[-!$ %^&* ()_ +| ~=`{}\[\]:";'<>?,.\/]/,
+        not: {
+          args: /[-!$ %^&* ()_ +| ~=`{}\[\]:";'<>?,.\/]/,
+          msg: 'Username can not contain special characters.'
+        },
+        notEmpty: {
+          args: true,
+          msg: 'Username can not contain special characters.'
+        },
       }
     },
     f_name: {
@@ -44,15 +51,22 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8],
-      },
+        notEmpty: {
+          args: true,
+          msg: 'Must enter a password.'
+        },
+        len: {
+          args: [8],
+          msg: 'Password must be at least 8 characters.'
+        }
+      }
     },
     age: {
       type: DataTypes.INTEGER,
       allowNull: true,
       validate: {
         isInt: true,
-        min:16,
+        min: 16,
         max: 120,
       }
     },
@@ -60,12 +74,13 @@ User.init(
       type: DataTypes.FLOAT,
       allowNull: true,
       validate: {
-        isFloat:{
-          args:{
+        isFloat: {
+          args: {
             min: 0,
             max: 1000,
+            msg: 'Weight must be between 0 and 1000',
           },
-          msg: 'Weight must be between 0 and 1000',
+
         }
       }
     },
@@ -86,17 +101,15 @@ User.init(
         min: 0,
         max: 100,
       }
-    }   
+    }
   },
   {
     hooks: {
-      beforeCreate: async (newUserData) =>
-      {
+      beforeCreate: async (newUserData) => {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
-      beforeUpdate: async (updatedUserData) =>
-      {
+      beforeUpdate: async (updatedUserData) => {
         updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
         return updatedUserData;
       },
