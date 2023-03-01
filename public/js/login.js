@@ -19,7 +19,7 @@ const loginFormHandler = async (event) => {
 
       if (response.ok) {
         // If successful, redirect the browser to the homepage
-        document.location.replace('/');
+        document.location.replace('/profile');
       } else {
         // const errRes = await response.json();
         const errMsg = 'Wrong username/password.'

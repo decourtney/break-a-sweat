@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 router.get('/profile', withAuth, async (req, res) => {
   try {
     const exercises = await getRandomExercises();
-    console.log(exercises);
+    // console.log(exercises);
 
     res.render('profile', {
       exercises,
@@ -88,7 +88,7 @@ try{
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/');
+    res.redirect('/profile');
     return;
   }
 

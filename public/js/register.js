@@ -31,10 +31,11 @@ const signupFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace('/myposts');
+      document.location.replace('/profile');
     } else {
-      const errRes = await response.json();
-      const errDiv = document.querySelector('#register-form #err-msg').innerHTML = `<span class="visible font-semibold text-red-500 drop-shadow-md">${checkResponse(errRes)}</span>`
+      const errResponse = await response.json();
+      const errMessage = errResponse.errors[0].message;
+      const errDiv = document.querySelector('#register-form #err-msg').innerHTML = `<span class="visible font-semibold text-red-500 drop-shadow-md">${errMessage}</span>`;
 
       setTimeout(() => {
         document.querySelector('#register-form #err-msg').innerHTML = `<span class="invisible font-semibold text-red-500 drop-shadow-md">Error Message</span>`;
@@ -43,27 +44,31 @@ const signupFormHandler = async (event) => {
   }
 };
 
-const checkResponse = (response) => {
-  let msg = ''
+// Dont need this anymore with Sequelize custom messages
+// const checkResponse = (response) => {
+//   let msg = ''
+//   console.log(response.errors[0].message);
+//   response.errors.forEach(element => {
+//     switch (element.message) {
+//       case 'Validation not on username failed':
+//         msg += `!--Username can not contain special characters--!`;
+//         break;
+//       case 'Validation len on password failed':
+//         msg += `!--Password must be at least 8 characters--!`;
+//         break;
+//       case 'Validation isEmail on email failed':
+//         msg += `!--Not a valid email--!`;
+//         break;
+//       case 'email must be unique':
+//         msg += `!--Not a valid email--!`;
+//         break;
+//       default:
+//         msg = `Oops! Something went wrong`;
+//     }
+//   });
 
-  response.errors.forEach(element => {
-    switch (element.message) {
-      case 'Validation not on username failed':
-        msg += `!--Username can not contain special characters--!`;
-        break;
-      case 'Validation len on password failed':
-        msg += `!--Password must be at least 8 characters--!`;
-        break;
-      case 'Validation isEmail on email failed':
-        msg += `!--Not a valid email--!`;
-        break;
-      default:
-        msg = `Oops! Something went wrong`;
-    }
-  });
-
-  return msg;
-}
+//   return msg;
+// }
 
 
 // Handle 
@@ -75,9 +80,12 @@ const regBtn = document.getElementById("open-modal");
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName("close")[0];
 
+const modalContent = document.querySelector('.modal-content');
+
 // When the user clicks on the button, open the modal
 regBtn.onclick = function () {
   modal.style.display = "block";
+  modal.classList.toggle('hidden');
 }
 
 // When the user clicks on <span> (x), close the modal
@@ -92,16 +100,7 @@ window.onclick = function (event) {
   }
 }
 
-// Modal selectors
-const modalBtn = document.querySelector("button.mobile-menu-button");
-const menu = document.querySelector(".mobile-menu");
-
 // Form
 document
   .querySelector('#modal #btn')
   .addEventListener('click', signupFormHandler);
-
-// // Modal
-// modalBtn.addEventListener("click", () => {
-//   menu.classList.toggle("hidden");
-// });
