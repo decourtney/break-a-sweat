@@ -2,10 +2,21 @@
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
-  content: ["./public/**/*.{js,jsx,ts,tsx,html,hbs,handlebars}", "./views/**/*.{js,jsx,ts,tsx,html,hbs,handlebars}"],
+  content: ["./public/**/*.{js,jsx,ts,tsx,html,hbs,handlebars}", "./views/**/*.{js,jsx,ts,tsx,html,hbs,handlebars}", "{./template.html}"],
   theme: {
     extend: {
       colors: {
+
+        fiord: '#405a74',
+        cinderella: '#fbdad0',
+        submarine: '#b2c3c2',
+        'tan-hide': '#f8a559',
+        strikemaster: '#915a8d', //custom theme
+        bouquet: '#ad74a4',
+        zinnwaldite: '#ecb4ab',
+        tacao: '#e9b381',
+        neptune: '#71bcb2',
+
         primary: {
           50: '#FBE0D9',
           100: '#F6C1B7',
