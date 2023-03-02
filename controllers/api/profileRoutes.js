@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Exercise, UserFavorite } = require('../../models');
+const { User, Exercise, UserFavorite, UserExercise } = require('../../models');
 const withAuth = require('../../utils/auth');
 const { getExercises, getRandomExercises } = require('../../utils/apiService');
 const Handlebars = require('handlebars')
@@ -72,31 +72,5 @@ router.post('/search', /*withAuth,*/ async (req, res) => {
     res.status(500).send({ error: 'An error occurred while searching for exercises.' });
   }
 });
-
-router.post('/add-favorite', withAuth, async (req, res) => {
-  try {
-    const newFavorite = {
-      user_id: req.session.logged_in,
-      exercise: req.body
-    };
-
-    const userFavorite = await User.create({
-      user_favorites: [newFavorite]
-    }, {
-      include: [{
-        association: User.user_favorites,
-        include: [Exercise]
-      }]
-    });
-
-    res.status(200).json(userFavorite);
-  } catch (err) {
-    // res.status(500).json(err);
-    console.error(err);
-    res.status(500).send({ error: 'An error occurred while trying to add to favorites.' });
-  }
-})
-
-
 
 module.exports = router;

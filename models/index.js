@@ -28,14 +28,14 @@ UserExercise.belongsTo(User, {
 });
 
 UserExercise.hasMany(Exercise, {
-  foreignKey: 'user_exercise_data_id',
+  foreignKey: 'user_exercise_id',
   onDelete: 'CASCADE'
 });
 
 Exercise.belongsToMany(UserExercise, {
   through: 'ExerciseDataUser',
   foreignKey: 'exercise_id',
-  otherKey: 'user_exercise_data_id'
+  otherKey: 'user_exercise_id'
 });
 
 module.exports = { User, Exercise, UserFavorite, UserExercise };

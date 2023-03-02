@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Exercise, UserFavorite, UserExercise } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 router.post('/', async (req, res) => {
   try {
@@ -59,6 +60,68 @@ router.post('/logout', (req, res) => {
     });
   } else {
     res.status(404).end();
+  }
+});
+
+router.update('/update-user-info', withAuth, async (req, res) => {
+  try {
+    const userUpdate = await User.update({
+      ...req.body.userInfo
+    },
+      {
+        where: {
+          id: req.session.id
+        }
+      });
+
+    res.status(200).json(userUpdate);
+  } catch (err) {
+    // res.status(500).json(err);
+    console.error(err);
+    res.status(500).send({ error: 'An error occurred while trying to add to favorites.' });
+  }
+});
+
+router.post('/add-favorite', withAuth, async (req, res) => {
+  try {
+    const newFavorite = {
+      user_id: req.session.id,
+      exercise: req.body
+    };
+
+    const userFavorite = await User.create({
+      user_favorites: [newFavorite]
+    },
+      {
+        include: [{
+          association: User.user_favorites,
+          include: [Exercise]
+        }]
+      });
+
+    res.status(200).json(userFavorite);
+  } catch (err) {
+    // res.status(500).json(err);
+    console.error(err);
+    res.status(500).send({ error: 'An error occurred while trying to add to favorites.' });
+  }
+});
+
+router.post('/add-exercise-info', withAuth, async (req, res) => {
+  try {
+    const newExercise = await UserExercise.create({
+      user_id: req.session.id,
+      ...req.body.exerciseInfo // Will likely have to deconstruct because the body will probably contain the Exercise info necessary for updating the Exercise table
+    });
+
+    const exercise = await Exercise.findOne({ where:{name: req.body.exerciseInfo.name}});
+    await newExercise.addExercise(exercise);
+    
+    res.status(200).json(exerciseInfo);
+  } catch (err) {
+    // res.status(500).json(err);
+    console.error(err);
+    res.status(500).send({ error: 'An error occurred while trying to add to favorites.' });
   }
 });
 

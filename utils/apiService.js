@@ -2,7 +2,7 @@ const key = 'MvLMtCjpe/b1xp1TUuzzjA==ylsHdsCXD1Kvg7ZC';
 const url = `https://api.api-ninjas.com/v1/exercises?`;
 
 const getExercises = async (param, val, offset) => {
-  let request = `${param}=${val}&offset=${offset}`;
+  const request = `${param}=${val}&offset=${offset}`;
   // Offset appears to +/- correctly
   // But results are not changing. I had a typo there so still needs
   // Testing to figure out wtf is going on.
@@ -17,10 +17,10 @@ const getRandomExercises = async () => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const randomIndex = Math.floor(Math.random() * 26);
   const randomLetter = alphabet[randomIndex];
-  let request = `name=${randomLetter}`;
+  const randomRequest = `name=${randomLetter}`;
 
   // console.log(`This is the random request ` + request)
-  return await callAPI(request);
+  return await callAPI(randomRequest);
 }
 
 const callAPI = async (req) => {
