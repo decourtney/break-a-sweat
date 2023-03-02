@@ -1,15 +1,15 @@
 const router = require('express').Router();
 const { User, Exercise, UserFavorite } = require('../../models');
 const withAuth = require('../../utils/auth');
-const getExercises = require('../../utils/apiService');
+const { getExercises, getRandomExercises } = require('../../utils/apiService');
 const Handlebars = require('handlebars')
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    const newProject = await Project.create({
-      ...req.body,
-      user_id: req.session.user_id,
-    });
+    // const newProject = await Project.create({
+    //   ...req.body,
+    //   user_id: req.session.user_id,
+    // });
 
     const userFavorites = await UserFavorite.
 
@@ -21,33 +21,47 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/bmi-chart-details', withAuth, async (req, res) => {
   try {
-    const userData = await User.findByPk(re.session.user_id);
+    const userData = await User.findByPk(req.session.user_id);
 
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);
     res.status(500).send({ error: 'An error occurred while searching for exercises.' });
   }
-
 });
 
-router.post('/search', withAuth, async (req, res) => {
+router.post('/search', /*withAuth,*/ async (req, res) => {
   try {
-    const exerciseData = await getExercises(req.body.param, req.body.val, req.body.offset);
+    req.session.offset += req.body.offset
+    // console.log(req.session.offset)
+    const exerciseData = await getExercises(req.body.param, req.body.val, req.session.offset);
+    console.log(exerciseData);
 
     const searchResultsCards = Handlebars.compile(`
-    <h2 class="text-lg font-bold">Search Results</h2>
-    {{#each results}}
-      <div class="border border-gray-300 shadow rounded-md p-4 mb-4">
-        <h3 class="text-xl font-bold mb-2">{{name}}</h3>
-        <p class="text-gray-600 mb-1"><strong>Muscle:</strong> {{muscle}}</p>
-        <p class="text-gray-600 mb-1"><strong>Equipment:</strong> {{equipment}}</p>
-        <p class="text-gray-600 mb-1"><strong>Difficulty:</strong> {{difficulty}}</p>
-        <p class="text-gray-600"><strong>Instructions:</strong> {{instructions}}</p>
+    <div id="search-results">
+      <div class="flex justify-between">
+        <h2 class="text-lg font-bold">Search Results</h2>
+        <div class="text-2xl">
+          <button id="previous" class="text-blue-500 mr-5">Previous</button>
+          <button id="next" class="text-blue-500 mr-5">Next</button>
+        </div>
       </div>
-    {{/each}}
-    `);
 
+      <div class="mt-8">
+        {{#each results}}
+          <div class="border border-gray-300 shadow rounded-md p-4 mb-4">
+            <h3 class="text-xl font-bold mb-2"><span id="name">{{name}}</span></h3>
+            <p class="text-gray-600 mb-1"><strong>Type:</strong> <span id="type">{{type}}</span></p>
+            <p class="text-gray-600 mb-1"><strong>Muscle:</strong> <span id="muscle">{{muscle}}</span></p>
+            <p class="text-gray-600 mb-1"><strong>Equipment:</strong> <span id="equipment">{{equipment}}</span></p>
+            <p class="text-gray-600 mb-1"><strong>Difficulty:</strong> <span id="difficulty">{{difficulty}}</span></p>
+            <p class="text-gray-600"><strong>Instructions:</strong> <span id="instructions">{{instructions}}</span></p>
+            <button id="add-favorites" class="border">Add</button>
+          </div>
+        {{/each}}
+      </div>
+    </div
+    `);
 
     const searchResultsHTML = searchResultsCards({ results: exerciseData }).toString();
 
@@ -58,5 +72,31 @@ router.post('/search', withAuth, async (req, res) => {
     res.status(500).send({ error: 'An error occurred while searching for exercises.' });
   }
 });
+
+router.post('/add-favorite', withAuth, async (req, res) => {
+  try {
+    const newFavorite = {
+      user_id: req.session.logged_in,
+      exercise: req.body
+    };
+
+    const userFavorite = await User.create({
+      user_favorites: [newFavorite]
+    }, {
+      include: [{
+        association: User.user_favorites,
+        include: [Exercise]
+      }]
+    });
+
+    res.status(200).json(userFavorite);
+  } catch (err) {
+    // res.status(500).json(err);
+    console.error(err);
+    res.status(500).send({ error: 'An error occurred while trying to add to favorites.' });
+  }
+})
+
+
 
 module.exports = router;

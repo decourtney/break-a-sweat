@@ -1,37 +1,36 @@
 const router = require('express').Router();
 const { Exercise, User, UserFavorite } = require('../models');
 const withAuth = require('../utils/auth');
-const getRandomExercises = require('../utils/apiService');
+const { getExercises, getRandomExercises } = require('../utils/apiService');
 
 // Root Route
-router.get('/', async (req, res) => {
-  try {
-
-    // Load Homepage
-    res.render('homepage', { 
-      logged_in: req.session.logged_in 
-    });
-  } catch (err) {
-    res.status(404).end();
-  }
-});
-
-// This route is used for testing Data pulls
 // router.get('/', async (req, res) => {
 //   try {
-//     const exercises = await getRandomExercises();
 
-//     // console.log(exercises)
-
-//     res.render('profile', {
-//       exercises,
-//       partial: 'profile-main-details',
-//       logged_in: req.session.logged_in
-//     })
+//     // Load Homepage
+//     res.render('homepage', { 
+//       logged_in: req.session.logged_in 
+//     });
 //   } catch (err) {
-//     res.status(500).json(err);
+//     res.status(404).end();
 //   }
 // });
+
+// This route is used for testing Data pulls
+router.get('/', withAuth, async (req, res) => {
+  try {
+    const exercises = await getRandomExercises();
+    // console.log(exercises)
+
+    res.render('profile', {
+      exercises,
+      partial: 'favorites-details',
+      logged_in: req.session.logged_in
+    })
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.get('/profile', withAuth, async (req, res) => {
   try {
@@ -76,8 +75,8 @@ router.get('/profile/charts', withAuth, async (req,res) => {
 try{
 
 
-  res.render('charts-details.handlebars',{
-    partial: '',
+  res.render('profile',{
+    partial: 'charts-details.handlebars',
     logged_in: req.session.logged_in
   })
 } catch (err) {
