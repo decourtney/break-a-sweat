@@ -1,15 +1,25 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class UserExerciseData extends Model { }
+class UserExercise extends Model { }
 
-UserExerciseData.init(
+UserExercise.init(
   {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+    },
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      validate: {
+        isDate: {
+          args: true,
+          msg: 'Improper date format - YYYY-MM-DD'
+        }
+      }
     },
     duration: {
       type: DataTypes.INTEGER,
@@ -38,22 +48,14 @@ UserExerciseData.init(
         unique: false,
       }
     },
-    exercise_id: {
-      type: DataTypes.INTEGER,
-      reference: {
-        model: 'exercise',
-        key: 'id',
-        unique: false,
-      }
-    }
   },
   {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'userexercisedata',
+    modelName: 'userexercise',
   }
 );
 
-module.exports = UserExerciseData;
+module.exports = UserExercise;
