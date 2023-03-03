@@ -611,6 +611,18 @@ video {
   right: 4rem;
 }
 
+.bottom-auto {
+  bottom: auto;
+}
+
+.bottom-10 {
+  bottom: 2.5rem;
+}
+
+.bottom-28 {
+  bottom: 7rem;
+}
+
 .m-10 {
   margin: 2.5rem;
 }

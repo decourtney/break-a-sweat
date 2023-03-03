@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Exercise, UserFavorite, UserExercise } = require('../../models');
 const withAuth = require('../../utils/auth');
 const { getExercises, getRandomExercises } = require('../../utils/apiService');
-const Handlebars = require('handlebars')
+const Handlebars = require('handlebars');
 
 router.get('/', withAuth, async (req, res) => {
   try {
@@ -30,7 +30,7 @@ router.get('/bmi-chart-details', withAuth, async (req, res) => {
   }
 });
 
-router.post('/search', /*withAuth,*/ async (req, res) => {
+router.post('/search', withAuth, async (req, res) => {
   try {
     req.session.offset += req.body.offset
     // console.log(req.session.offset)
