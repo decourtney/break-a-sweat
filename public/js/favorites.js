@@ -42,7 +42,7 @@ const getFavorites = async (offset = 0) => {
 
     if (response.ok) {
       const newHTML = await response.text();
-      randomResultDiv.innerHTML = newHTML;
+      favoritesResultDiv.innerHTML = newHTML;
     }
   } catch (error) {
     console.error(error);
@@ -59,7 +59,7 @@ const getRandoms = async (offset = 0) => {
 
     if (response.ok) {
       const newHTML = await response.text();
-      favoritesResultDiv.innerHTML = newHTML;
+      randomResultDiv.innerHTML = newHTML;
     }
   } catch (error) {
     console.error(error);
