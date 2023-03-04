@@ -6,6 +6,13 @@ const { getExercises, getRandomExercises } = require('../utils/apiService');
 // Root Route
 router.get('/', async (req, res) => {
   try {
+<<<<<<< Updated upstream
+=======
+    if(!req.session.logged_in){
+      res.redirect('/login');
+    } 
+    //tutor says this will break roku deployment
+>>>>>>> Stashed changes
 
     // Load Homepage
     res.render('homepage', {
@@ -15,7 +22,9 @@ router.get('/', async (req, res) => {
     res.status(404).end();
   }
 });
-
+router.get("/favorites",(req,res)=>{
+  res.render("favorites")
+})
 // This route is used for testing Data pulls
 // Favorites right now
 // router.get('/', withAuth, async (req, res) => {
