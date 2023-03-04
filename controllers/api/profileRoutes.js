@@ -6,12 +6,7 @@ const Handlebars = require('handlebars');
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    // const newProject = await Project.create({
-    //   ...req.body,
-    //   user_id: req.session.user_id,
-    // });
-
-    const userFavorites = await UserFavorite.
+    // const userFavorites = await UserFavorite.
 
       res.status(200).json(newProject);
   } catch (err) {
@@ -32,40 +27,109 @@ router.get('/bmi-chart-details', withAuth, async (req, res) => {
 
 router.post('/search', withAuth, async (req, res) => {
   try {
-    req.session.offset += req.body.offset
-    // console.log(req.session.offset)
-    const exerciseData = await getExercises(req.body.param, req.body.val, req.session.offset);
+    const exerciseData = await getExercises(req.body.param, req.body.val, req.body.offset);
     console.log(exerciseData);
 
     const searchResultsCards = Handlebars.compile(`
-    <div id="search-results">
-      <div class="flex justify-between">
-        <h2 class="text-lg font-bold">Search Results</h2>
-        <div class="text-2xl">
-          <button id="previous" class="text-blue-500 mr-5">Previous</button>
-          <button id="next" class="text-blue-500 mr-5">Next</button>
+    <button id="prev-button" data-offset="0" class="paginate seraches w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M15 18l-6-6 6-6"></path></svg>
+    </button>
+
+    {{#each results}}
+    {{!-- Exercise Card --}}
+    <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer" style="width: 80%">
+      <div class="inline-flex pointer-events-none">
+        <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+            <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+            <p class="text-gray-600">{{type}}</p>
         </div>
       </div>
 
-      <div class="mt-8">
-        {{#each results}}
-          <div class="border border-gray-300 shadow rounded-md p-4 mb-4">
-            <h3 class="text-xl font-bold mb-2"><span id="name">{{name}}</span></h3>
-            <p class="text-gray-600 mb-1"><strong>Type:</strong> <span id="type">{{type}}</span></p>
-            <p class="text-gray-600 mb-1"><strong>Muscle:</strong> <span id="muscle">{{muscle}}</span></p>
-            <p class="text-gray-600 mb-1"><strong>Equipment:</strong> <span id="equipment">{{equipment}}</span></p>
-            <p class="text-gray-600 mb-1"><strong>Difficulty:</strong> <span id="difficulty">{{difficulty}}</span></p>
-            <p class="text-gray-600"><strong>Instructions:</strong> <span id="instructions">{{instructions}}</span></p>
-            <button id="add-favorites" class="border">Add</button>
-          </div>
-        {{/each}}
+      <div class="flex justify-center pt-4">
+        <button id="add-favorites" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-id="{{id}}">
+          Add to favorites
+        </button>
       </div>
-    </div
+
+      {{!-- Details Card (initially hidden) --}}
+      <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+        style="display: none;">
+        <div class="pointer-events-none">
+          <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+          <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+          <p id="type" class="text-gray-600">{{type}}</p>
+          <p id="muscle" class="text-gray-600">{{muscle}}</p>
+          <p id="equipment" class="text-gray-600">{{equipment}}</p>
+          <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+          <p id="instructions" class="text-gray-600">{{instructions}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    <button id="next-button" data-offset="0" class="paginate searches w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 ml-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M9 18l6-6-6-6"></path></svg>
+    </button>
     `);
 
     const searchResultsHTML = searchResultsCards({ results: exerciseData }).toString();
 
     res.status(200).send(searchResultsHTML)
+  } catch (err) {
+    // res.status(500).json(err);
+    console.error(err);
+    res.status(500).send({ error: 'An error occurred while searching for exercises.' });
+  }
+});
+
+router.post('/get-randoms', withAuth, async (req, res) => {
+  try {
+    const randoms = await getRandomExercises(req.body.offset);
+    if (!randoms) randoms = { name: `Sorry. I don't have any suggestions` }
+
+    const randomResultsCards = Handlebars.compile(`
+    <button id="prev-button" data-offset="0" class="paginate randoms w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M15 18l-6-6 6-6"></path></svg>
+    </button>
+
+    {{#each results limit=5}}
+    {{!-- Exercise Card --}}
+    <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer" style="width: 80%">
+      <div class="inline-flex pointer-events-none">
+        <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6" id="card1">
+          <div class="">
+            <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+            <p class="text-gray-600">{{type}}</p>
+          </div>
+        </div>
+      </div>
+
+      {{!-- Details Card (initially hidden) --}}
+      <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+        style="display: none;">
+        <div class="pointer-events-none">
+          <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-lg font-medium mb-4">{{name}}</h2>
+            <p class="text-gray-600">{{type}}</p>
+            <p class="text-gray-600">{{muscle}}</p>
+            <p class="text-gray-600">{{equipment}}</p>
+            <p class="text-gray-600">{{difficulty}}</p>
+            <p class="text-gray-600">{{instructions}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+
+    <button id="next-button" data-offset="0" class="paginate randoms w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 ml-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M9 18l6-6-6-6"></path></svg>
+    </button>
+    `);
+
+    const randomResultsHTML = randomResultsCards({ results: randoms });
+
+    res.status(200).send(randomResultsHTML);
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);

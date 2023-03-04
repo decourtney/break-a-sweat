@@ -87,62 +87,62 @@ router.post('/update-user-info', withAuth, async (req, res) => {
   }
 });
 
-router.get('/get-favorites', withAuth, async (req, res) => {
+router.post('/get-favorites', withAuth, async (req, res) => {
   // increase a users saved offset for pagination
+
   try {
     const favoritesData = await Exercise.findAll({
       include: {
         model: User,
         as: 'favorites_user',
-        where: {id: req.session.user_id}
+        where: { id: req.session.user_id }
       },
-      limit: 10
+      limit: 1,
+      offset: req.body.offset
     });
 
     const favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
 
     const favoritesResultsCards = Handlebars.compile(`
-    <button id="prev-button" class="paginate w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto"><path d="M15 18l-6-6 6-6"></path></svg>
+    <button id="prev-button" data-offset="0" class="paginate favorites w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M15 18l-6-6 6-6"></path></svg>
     </button>
 
     {{#each results}}
     {{!-- Exercise Card --}}
-    <div id="exercise-card" class="flex overflow-x-scroll" style="width: 80%">
-      <div class="cursor-pointer inline-flex">
-        <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6 pointer-events-none" id="card1">
-          <div class="">
+    <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer" style="width: 80%">
+      <div class="inline-flex pointer-events-none">
+        <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
             <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
             <p class="text-gray-600">{{type}}</p>
-          </div>
         </div>
       </div>
 
       {{!-- Details Card (initially hidden) --}}
-      <div id="overlay" class="fixed top-0 left-0 w-full h-full flex items-center justify-center"
+      <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
         style="display: none;">
         <div class="pointer-events-none">
           <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-lg font-medium mb-4">{{name}}</h2>
-            <p class="text-gray-600">{{type}}</p>
-            <p class="text-gray-600">{{muscle}}</p>
-            <p class="text-gray-600">{{equipment}}</p>
-            <p class="text-gray-600">{{difficulty}}</p>
-            <p class="text-gray-600">{{instructions}}</p>
+            <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+            <p id="type" class="text-gray-600">{{type}}</p>
+            <p id="muscle" class="text-gray-600">{{muscle}}</p>
+            <p id="equipment" class="text-gray-600">{{equipment}}</p>
+            <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+            <p id="instructions" class="text-gray-600">{{instructions}}</p>
           </div>
         </div>
       </div>
     </div>
     {{/each}}
 
-    <button id="next-button" class="paginate w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 ml-4">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto"><path d="M9 18l6-6-6-6"></path></svg>
+    <button id="next-button" data-offset="0" class="paginate favorites w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 ml-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M9 18l6-6-6-6"></path></svg>
     </button>
     `);
 
-    const favoritesResultsHTML = favoritesResultsCards({results: favorites})
+    const favoritesResultsHTML = favoritesResultsCards({ results: favorites })
 
-    res.status(200).json(favoritesResultsHTML);
+    res.status(200).send(favoritesResultsHTML);
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);
@@ -152,23 +152,36 @@ router.get('/get-favorites', withAuth, async (req, res) => {
 
 // For adding an exercise to the users favorites
 router.post('/add-favorite', withAuth, async (req, res) => {
-  try {
-    const newFavorite = {
-      user_id: req.session.id,
-      exercise: req.body
-    };
+  const favInfo = req.body.favInfo;
+  console.log('This is the favInfo: ' + favInfo.id);
 
-    const userFavorite = await User.create({
-      user_favorites: [newFavorite]
-    },
-      {
-        include: [{
-          association: User.user_favorites,
-          include: [Exercise]
-        }]
+  try {
+    const exercise = await Exercise.findOne({ where: { name: favInfo.name } });
+
+    if (exercise) {
+      const favorite = await UserFavorite.findOne({ where: { user_id: req.session.user_id, exercise_id: exercise.id } });
+      
+      if (!favorite) {
+        // Exercise already exists and not in favorites then add
+        const newFavorite = await UserFavorite.create({
+          userId: req.session.user_id,
+          exerciseId: exercise.id
+        });
+
+        return res.status(201).json({ favorite: newFavorite });
+      }
+
+      return res.status(201).send('That exercise is already favorited.');
+    } else {
+      // Exercise doesn't exist, create it and then create a new favorite object and associate it with the user
+      const newExercise = await Exercise.create({ favInfo });
+      const newFavorite = await UserFavorite.create({
+        userId: req.session.user_id,
+        exerciseId: newExercise.id
       });
 
-    res.status(200).json(userFavorite);
+      return res.status(201).json({ favorite: newFavorite });
+    }
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);

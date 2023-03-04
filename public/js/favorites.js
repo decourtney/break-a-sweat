@@ -1,35 +1,19 @@
 const searchResultsDiv = document.querySelector('#search-results');
 const favoritesResultDiv = document.querySelector('#favorite-results');
 const randomResultDiv = document.querySelector('#random-results');
-const param = document.querySelector('#search-criteria').value.trim();
-const val = document.querySelector('#search-term').value.trim();
 
-const getFavorites = async () => {
-  try {
-    const response = await fetch('/api/users/get-favorites', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    console.log
-    if (response.ok) {
-      const newHTML = await response.text();
-      console.log(newHTML)
-      favoritesResultDiv.innerHTML = newHTML;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const getRandom = async () => {
-
-};
+const init = () => {
+  getFavorites();
+  getRandoms();
+}
 
 const searchFormHandler = async (event, offset = 0) => {
   if (event) { event.preventDefault(); }
 
-  // console.log(`These are the params from html ` + param, val)
+  const param = document.querySelector('#search-criteria').value.trim();
+  const val = document.querySelector('#search-term').value.trim();
+
+  console.log(`These are the params from html ` + param, val)
   if (param && val) {
     try {
       const response = await fetch('/api/profile/search', {
@@ -40,7 +24,6 @@ const searchFormHandler = async (event, offset = 0) => {
 
       if (response.ok) {
         const newHTML = await response.text();
-
         searchResultsDiv.innerHTML = newHTML;
       }
     } catch (error) {
@@ -49,30 +32,114 @@ const searchFormHandler = async (event, offset = 0) => {
   }
 };
 
-const addFavoritesHandler = async (event) => {
-  const fav = favoritesResultDiv;
+const getFavorites = async (offset = 0) => {
+  try {
+    const response = await fetch('/api/users/get-favorites', {
+      method: 'POST',
+      body: JSON.stringify({ offset }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      const newHTML = await response.text();
+      randomResultDiv.innerHTML = newHTML;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getRandoms = async (offset = 0) => {
+  try {
+    const response = await fetch('/api/profile/get-randoms', {
+      method: 'POST',
+      body: JSON.stringify({ offset }),
+      headers: { 'Content-type': 'application/json' },
+    })
+
+    if (response.ok) {
+      const newHTML = await response.text();
+      favoritesResultDiv.innerHTML = newHTML;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const addFavoritesHandler = async (el) => {
+  const infoDiv = el
+  console.log(infoDiv);
+
   const favInfo = {
-    name: fav.querySelector("#name").textContent.trim(),
-    type: fav.querySelector("#type").textContent.trim(),
-    muscle: fav.querySelector("#muscle").textContent.trim(),
-    equipment: fav.querySelector("#equipment").textContent.trim(),
-    difficulty: fav.querySelector("#difficulty").textContent.trim(),
-    instructions: fav.querySelector("#instructions").textContent.trim(),
+    id: infoDiv.querySelector("#add-favorites").dataset.id,
+    name: infoDiv.querySelector("#name").textContent.trim(),
+    type: infoDiv.querySelector("#type").textContent.trim(),
+    muscle: infoDiv.querySelector("#muscle").textContent.trim(),
+    equipment: infoDiv.querySelector("#equipment").textContent.trim(),
+    difficulty: infoDiv.querySelector("#difficulty").textContent.trim(),
+    instructions: infoDiv.querySelector("#instructions").textContent.trim(),
   };
   console.log(favInfo);
 
+  try {
+    const response = await fetch('/api/users/add-favorite', {
+      method: 'POST',
+      body: JSON.stringify({ favInfo }),
+      headers: { 'Content-type': 'application/json' },
+    });
 
+    if(response.ok){
+      console.log(response);
+    }  
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const handlePaginate = (event) => { }
+const getPaginate = (paginate) => {
+  // console.log(paginate);
+  const offset = parseInt(paginate.dataset.offset);
+  let newOffset = 0;
 
-const cardHandler = (event) => {
-  const overlay = event.target.nextElementSibling;
-
-  if (event.target.id === 'overlay') {
-    event.target.style.display = 'none'
+  if (paginate.id === 'prev-button') {
+    newOffset = Math.max(offset - 5, 0)
   } else {
+    newOffset = Math.max(offset + 5, 0)
+  }
+
+  paginate.dataset.offset = newOffset;
+
+  if (paginate.classList.contains('favorites'))
+    getFavorites(newOffset);
+  if (paginate.classList.contains('randoms'))
+    getRandoms(newOffset);
+  if (paginate.classList.contains('searches'))
+    searchFormHandler(paginate, newOffset);
+
+}
+
+const handleClickEvents = (event) => {
+  console.log(event)
+  const tar = event.target;
+
+  // If next/previous button clicked
+  if (tar.classList.contains('paginate')) {
+    getPaginate(event.target);
+  }
+
+  if (tar.id === 'add-favorites') {
+    // console.log(event.target)
+    addFavoritesHandler(event.target.closest("#exercise-card"))
+  }
+
+  // If an exercise card is clicked
+  if (tar.id === 'exercise-card') {
+    const overlay = tar.querySelector('#overlay');
     overlay.style.display = 'flex';
+  }
+
+  if (tar.id === 'overlay') {
+    tar.style.display = 'none';
   }
 };
 
@@ -80,29 +147,8 @@ document
   .querySelector('#search-form')
   .addEventListener('submit', searchFormHandler);
 
-document
-  .addEventListener('DOMContentLoaded', () => {
-    const paginates = document.querySelectorAll('.paginate');
-    const cards = document.querySelectorAll(`#exercise-card`);
+favoritesResultDiv.addEventListener('click', handleClickEvents);
+searchResultsDiv.addEventListener('click', handleClickEvents);
+randomResultDiv.addEventListener('click', handleClickEvents);
 
-    paginates.forEach(paginate => {
-      paginate.addEventListener('click', (event) => { console.log(event) });
-    });
-
-    cards.forEach(card => {
-      card.addEventListener('click', cardHandler);
-    });
-  })
-
-document
-  .addEventListener('click', (event) => {
-    if (event.target.id === 'add-favorites') {
-      addFavoritesHandler();
-    } else if (event.target.id === 'previous') {
-      searchFormHandler(null, -10);
-    } else if (event.target.id === 'next') {
-      searchFormHandler(null, 10);
-    }
-  });
-
-getFavorites();
+init();
