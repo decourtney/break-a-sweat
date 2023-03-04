@@ -1,0 +1,114 @@
+[
+  {
+    "date": "2022-01-01",
+    "duration": 60,
+    "weights": 50,
+    "user_id": 1,
+    "exercise_id": 1
+  },
+  {
+    "date": "2022-01-02",
+    "duration": 45,
+    "weights": 40,
+    "user_id": 2,
+    "exercise_id": 2
+  },
+  {
+    "date": "2022-01-03",
+    "duration": 30,
+    "weights": 35,
+    "user_id": 3,
+    "exercise_id": 3
+  },
+  {
+    "date": "2022-01-04",
+    "duration": 90,
+    "weights": 60,
+    "user_id": 4,
+    "exercise_id": 4
+  },
+  {
+    "date": "2022-01-05",
+    "duration": 75,
+    "weights": 70,
+    "user_id": 1,
+    "exercise_id": 5
+  },
+  {
+    "date": "2022-01-06",
+    "duration": 120,
+    "weights": 80,
+    "user_id": 2,
+    "exercise_id": 6
+  },
+  {
+    "date": "2022-01-07",
+    "duration": 45,
+    "weights": 30,
+    "user_id": 3,
+    "exercise_id": 7
+  },
+  {
+    "date": "2022-01-08",
+    "duration": 60,
+    "weights": 50,
+    "user_id": 4,
+    "exercise_id": 8
+  },
+  {
+    "date": "2022-01-09",
+    "duration": 30,
+    "weights": 20,
+    "user_id": 1,
+    "exercise_id": 9
+  },
+  {
+    "date": "2022-01-10",
+    "duration": 60,
+    "weights": 45,
+    "user_id": 2,
+    "exercise_id": 1
+  },
+  {
+    "date": "2022-01-11",
+    "duration": 90,
+    "weights": 65,
+    "user_id": 3,
+    "exercise_id": 2
+  },
+  {
+    "date": "2022-01-12",
+    "duration": 45,
+    "weights": 30,
+    "user_id": 4,
+    "exercise_id": 3
+  },
+  {
+    "date": "2022-01-13",
+    "duration": 75,
+    "weights": 70,
+    "user_id": 1,
+    "exercise_id": 4
+  },
+  {
+    "date": "2022-01-14",
+    "duration": 120,
+    "weights": 80,
+    "user_id": 2,
+    "exercise_id": 5
+  },
+  {
+    "date": "2022-01-15",
+    "duration": 45,
+    "weights": 35,
+    "user_id": 3,
+    "exercise_id": 6
+  },
+  {
+    "date": "2022-01-16",
+    "duration": 60,
+    "weights": 50,
+    "user_id": 4,
+    "exercise_id": 7
+  }
+]

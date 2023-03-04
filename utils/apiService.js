@@ -2,29 +2,29 @@ const key = 'MvLMtCjpe/b1xp1TUuzzjA==ylsHdsCXD1Kvg7ZC';
 const url = `https://api.api-ninjas.com/v1/exercises?`;
 
 const getExercises = async (param, val, offset) => {
-  if (!offset) {
-    offset = 0;
-  }
-
-  const request = `${param}=${val}&offest=${offset}`;
-  console.log(request);
+  const request = `${param}=${val}&offset=${offset}`;
+  // Offset appears to +/- correctly
+  // But results are not changing. I had a typo there so still needs
+  // Testing to figure out wtf is going on.
   
+  // console.log('This is getExercises ' + request);
   return await callAPI(request);
 }
 
-const getRandomExercises = async () => {
+const getRandomExercises = async (offset) => {
 
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const randomIndex = Math.floor(Math.random() * 26);
   const randomLetter = alphabet[randomIndex];
-  const request = `name=${randomLetter}`;
+  const randomRequest = `name=${randomLetter}&offset=${offset}`;
 
-  // console.log(request)
-  return await callAPI(request);
+  // console.log(`This is the random request ` + request)
+  return await callAPI(randomRequest);
 }
 
 const callAPI = async (req) => {
   try {
+    // console.log('This is the api url ' + url + req)
     const response = await fetch(url + req, {
       method: 'GET',
       headers: {
@@ -42,4 +42,4 @@ const callAPI = async (req) => {
   }
 }
 
-module.exports = getRandomExercises, getExercises;
+module.exports = { getRandomExercises, getExercises };

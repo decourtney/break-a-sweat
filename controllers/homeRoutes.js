@@ -1,15 +1,15 @@
 const router = require('express').Router();
 const { Exercise, User, UserFavorite } = require('../models');
 const withAuth = require('../utils/auth');
-const getRandomExercises = require('../utils/apiService');
+const { getExercises, getRandomExercises } = require('../utils/apiService');
 
 // Root Route
 router.get('/', async (req, res) => {
   try {
 
     // Load Homepage
-    res.render('homepage', { 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+      logged_in: req.session.logged_in
     });
   } catch (err) {
     res.status(404).end();
@@ -17,29 +17,43 @@ router.get('/', async (req, res) => {
 });
 
 // This route is used for testing Data pulls
-// router.get('/', async (req, res) => {
+// Favorites right now
+// router.get('/', withAuth, async (req, res) => {
 //   try {
-//     const exercises = await getRandomExercises();
 
-//     // console.log(exercises)
+
+//     // const favoritesData = await Exercise.findAll({
+//     //   include: {
+//     //     model: User,
+//     //     as: 'favorites_user',
+//     //     where: {id: req.session.user_id}
+//     //   },
+//     //   limit: 5
+//     // })
+
+//     // const favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
+
+//     // console.log(favorites);
+//     // console.log(randoms);
 
 //     res.render('profile', {
-//       exercises,
-//       partial: 'profile-main-details',
+//       // favorites,
+//       // randoms,
+//       partial: 'favorites-details',
 //       logged_in: req.session.logged_in
 //     })
 //   } catch (err) {
-//     res.status(500).json(err);
+//     // res.status(500).json(err);
+//     console.error(err);
+//     res.status(500).send({ error: 'An error occurred while searching for exercises.' });
 //   }
 // });
 
 router.get('/profile', withAuth, async (req, res) => {
   try {
-    const exercises = await getRandomExercises();
-    // console.log(exercises);
+
 
     res.render('profile', {
-      exercises,
       partial: 'profile-main-details',
       logged_in: req.session.logged_in
     });
@@ -50,39 +64,29 @@ router.get('/profile', withAuth, async (req, res) => {
 
 router.get('/profile/favorites', withAuth, async (req, res) => {
   try {
-    const favoritesData = await User.findByPk(3, {
-      include: {
-        model: Exercise,
-        attributes: ['id', 'name', 'type'],
-        as: 'user_favorites',
-      }
-    });
-
-    const favorites = favoritesData.user_favorites.map((favorite) => favorite.get({ plain: true }));
-
-    // console.log(favorites);
 
     res.render('profile', {
-      favorites,
       partial: 'favorites-details',
       logged_in: req.session.logged_in
-    });
+    })
   } catch (err) {
-    res.status(500).json(err);
+    // res.status(500).json(err);
+    console.error(err);
+    res.status(500).send({ error: 'An error occurred while searching for exercises.' });
   }
 });
 
-router.get('/profile/charts', withAuth, async (req,res) => {
-try{
+router.get('/profile/charts', withAuth, async (req, res) => {
+  try {
 
 
-  res.render('charts-details.handlebars',{
-    partial: '',
-    logged_in: req.session.logged_in
-  })
-} catch (err) {
-  res.status(500).json(err);
-}
+    res.render('profile', {
+      partial: 'charts-details.handlebars',
+      logged_in: req.session.logged_in
+    })
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 router.get('/login', (req, res) => {
