@@ -6,7 +6,6 @@ const Handlebars = require('handlebars');
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    // const userFavorites = await UserFavorite.
 
       res.status(200).json(newProject);
   } catch (err) {
