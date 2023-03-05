@@ -6,13 +6,6 @@ const { getExercises, getRandomExercises } = require('../utils/apiService');
 // Root Route
 router.get('/', async (req, res) => {
   try {
-<<<<<<< Updated upstream
-=======
-    if(!req.session.logged_in){
-      res.redirect('/login');
-    } 
-    //tutor says this will break roku deployment
->>>>>>> Stashed changes
 
     // Load Homepage
     res.render('homepage', {
