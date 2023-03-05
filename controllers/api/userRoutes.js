@@ -88,8 +88,6 @@ router.post('/update-user-info', withAuth, async (req, res) => {
 });
 
 router.post('/get-favorites', withAuth, async (req, res) => {
-  // increase a users saved offset for pagination
-
   try {
     const favoritesData = await Exercise.findAll({
       include: {
@@ -97,11 +95,31 @@ router.post('/get-favorites', withAuth, async (req, res) => {
         as: 'favorites_user',
         where: { id: req.session.user_id }
       },
-      limit: 1,
+      limit: 5,
       offset: req.body.offset
     });
 
-    const favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
+    let favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
+    let eol = false;
+
+    console.log(favorites);
+    if (favorites.length <= 0) {
+      console.log('NO MORE EXERCISES!');
+      eol = true;
+      favorites = [
+        {
+          id: '',
+          name: 'End of Line',
+          type: `You don't have anymore favorited exercises.`,
+          muscle: '',
+          equipment: '',
+          difficulty: '',
+          instructions: '',
+          user_exercise_id: null,
+          favorites_user: null
+        }
+      ]
+    }
 
     const favoritesResultsCards = Handlebars.compile(`
     <button id="prev-button" data-offset="0" class="paginate favorites w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
@@ -142,7 +160,7 @@ router.post('/get-favorites', withAuth, async (req, res) => {
 
     const favoritesResultsHTML = favoritesResultsCards({ results: favorites })
 
-    res.status(200).send(favoritesResultsHTML);
+    res.status(200).json({newHTML: favoritesResultsHTML, eol: eol});
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);
@@ -153,16 +171,19 @@ router.post('/get-favorites', withAuth, async (req, res) => {
 // For adding an exercise to the users favorites
 router.post('/add-favorite', withAuth, async (req, res) => {
   const favInfo = req.body.favInfo;
-  console.log('This is the favInfo: ' + favInfo.id);
+  console.log('This is the favInfo: ' + favInfo.name);
 
   try {
     const exercise = await Exercise.findOne({ where: { name: favInfo.name } });
+    console.log('Return from exercise.findone: ' + exercise)
 
     if (exercise) {
       const favorite = await UserFavorite.findOne({ where: { user_id: req.session.user_id, exercise_id: exercise.id } });
-      
+      console.log('Return from userfavorite.findone: ' + favorite)
+
       if (!favorite) {
         // Exercise already exists and not in favorites then add
+        console.log('')
         const newFavorite = await UserFavorite.create({
           userId: req.session.user_id,
           exerciseId: exercise.id
@@ -174,7 +195,8 @@ router.post('/add-favorite', withAuth, async (req, res) => {
       return res.status(201).send('That exercise is already favorited.');
     } else {
       // Exercise doesn't exist, create it and then create a new favorite object and associate it with the user
-      const newExercise = await Exercise.create({ favInfo });
+      console.log('Exercise or Favorite doesnt exist, so creating new')
+      const newExercise = await Exercise.create({ ...favInfo });
       const newFavorite = await UserFavorite.create({
         userId: req.session.user_id,
         exerciseId: newExercise.id
