@@ -87,6 +87,7 @@ router.post('/update-user-info', withAuth, async (req, res) => {
   }
 });
 
+// Get the users favorited exercises from the db
 router.post('/get-favorites', withAuth, async (req, res) => {
   try {
     const favoritesData = await Exercise.findAll({
@@ -211,7 +212,7 @@ router.post('/add-favorite', withAuth, async (req, res) => {
   }
 });
 
-// For adding post-exercise info for a users favorite
+// For adding post-exercise info to a users favorited exercise
 router.post('/add-exercise-info', withAuth, async (req, res) => {
   try {
     const newExercise = await UserExercise.create({
