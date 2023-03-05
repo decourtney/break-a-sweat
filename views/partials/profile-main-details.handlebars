@@ -1,20 +1,45 @@
 <div class="flex flex-wrap">
-  <div class="w-full md:w-1/3 p-6 divider">
-    <p class="text-white m-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-      ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-      fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-      anim id est laborum.</p>
+    <div class="w-full md:w-1/3 p-6 divider">
+      <img class="w-2/3 rounded-lg border-black border shadow-md mx-16" src="/images/photo_placeholder.png"
+        alt="profile-pic-placeholder" />
+      <p class="text-white text-lg pb-2 text-center">{Name}</p>
+      <p class="text-white text-sm pb-2 border-b-4 text-center">{@UserName}</p>
+      <br />
+      <div>
+        <!-- ADD LOGIC TO UNDERLINE EACH DAY OF WEEK THAT THE USER WORKED OUT, USE BLACK TO UNDERLINE -->
+        <h3 class="text-white text-2xl pb-3">Week In Review</h3>
+        <p class="text-white pb-4 text-lg text-center">
+          <span class="mx-4">M</span>
+          <span class="mx-5">W</span>
+          <span class="mx-4">Th</span>
+          <span class="mx-4">F</span>
+          <span class="mx-4">S</span>
+        </p>
+      </div>
+      <div class="container flex justify-between">
+        <p class="text-white">
+          <img class="w-8 pt-6 pb-2" src="/images/excercise.png" />
+          {Time}
+        </p>
+        <p class="text-white">
+          <img class="w-8 pt-6 pb-2" src="/images/distance.png" />
+          {Distance}
+        </p>
+        <p class="text-white">
+          <img class="w-8 pt-6 pb-2" src="/images/calories.png" />
+          {Calories}
+        </p>
+      </div>
+    </div>
+    <div class="w-full md:w-2/3 p-6">
+      <a href="#previous-workouts"
+        class="block bg-white hover:bg-strikemaster text-neptune font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Previous
+        Workouts</a>
+      <a href="#suggested-areas"
+        class="block bg-white hover:bg-strikemaster text-neptune font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Suggested
+        Areas</a>
+    </div>
   </div>
-  <div class="w-full md:w-2/3 p-6">
-    <a href="#previous-workouts"
-      class="block bg-white hover:bg-blue-500 text-blue-700 font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Previous
-      Workouts</a>
-    <a href="#suggested-areas"
-      class="block bg-white hover:bg-blue-500 text-blue-700 font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Suggested
-      Areas</a>
-  </div>
-</div>
 
 {{!--
 <script src="/js/profile.js"></script> --}}
