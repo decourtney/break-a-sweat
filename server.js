@@ -29,7 +29,6 @@ const sess = {
   store: new SequelizeStore({
     db: sequelize
   }),
-  maxAge: null // change or remove
 };
 
 app.use(session(sess));
