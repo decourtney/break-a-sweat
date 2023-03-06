@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Exercise, User, UserFavorite } = require('../models');
 const withAuth = require('../utils/auth');
 const { getExercises, getRandomExercises } = require('../utils/apiService');
+const moment = require('moment');
 
 // Root Route
 router.get('/', async (req, res) => {
@@ -15,9 +16,8 @@ router.get('/', async (req, res) => {
     res.status(404).end();
   }
 });
-router.get("/favorites",(req,res)=>{
-  res.render("favorites")
-})
+
+
 // This route is used for testing Data pulls
 // Favorites right now
 // router.get('/', withAuth, async (req, res) => {
@@ -53,8 +53,6 @@ router.get("/favorites",(req,res)=>{
 
 router.get('/profile', withAuth, async (req, res) => {
   try {
-
-
     res.render('profile', {
       partial: 'profile-main-details',
       logged_in: req.session.logged_in
@@ -63,7 +61,6 @@ router.get('/profile', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 router.get('/profile/favorites', withAuth, async (req, res) => {
   try {
 
@@ -78,12 +75,12 @@ router.get('/profile/favorites', withAuth, async (req, res) => {
   }
 });
 
-router.get('/profile/charts', withAuth, async (req, res) => {
+router.get('/profile/analytics', withAuth, async (req, res) => {
   try {
 
 
     res.render('profile', {
-      partial: 'charts-details.handlebars',
+      partial: 'analytics-details',
       logged_in: req.session.logged_in
     })
   } catch (err) {
@@ -99,6 +96,15 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+router.get('/profile/calendar', function(req, res) {
+  // Get the year and month from the query string
+  const year = parseInt(req.query.year);
+  const month = parseInt(req.query.month);
+
+  // Render the calendar using Handlebars
+  res.render('profile', { partial: 'calendar',year, month});
 });
 
 module.exports = router;

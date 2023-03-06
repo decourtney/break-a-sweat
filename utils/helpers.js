@@ -22,11 +22,4 @@ module.exports = {
   concat: (string1, string2) => {
     return string1 + string2;
   },
-  range: (start, stop, step = 1) => {
-    let arr = [];
-    for (let i = start; i < stop; i += step) {
-      arr.push(i);
-    }
-    return arr;
-  }
 };
