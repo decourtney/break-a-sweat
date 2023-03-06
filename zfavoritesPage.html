@@ -65,95 +65,251 @@
         </div>
       </div>
     </nav>
-<body class="bg-body">
-    <div class="px-5 flex justify-center">
-      <div class="mb-3 xl:w-96">
-        <div class="mb-4 mt-10 h-16 flex">
-          <input
-            type="search"
-            class="relative m-0 -mr-px block w-[1%] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-white bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-200"
-            placeholder="Search Excercises"
-            aria-label="Search"
-            aria-describedby="button-addon1"
-          />
-          <button
-            class="relative z-[2] flex items-center rounded-r bg-primary-200 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-neptune shadow-md transition duration-150 ease-in-out hover:bg-primary-700 hover:shadow-lg focus:bg-primary-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-primary-800 active:shadow-lg"
-            type="button"
-            id="button-addon1"
-            data-te-ripple-init
-            data-te-ripple-color="light"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              class="h-5 w-5"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
+
+<body>
+  <main class="bg-body h-screen">
+        <p class="mx-8 text-3xl pb-2">Favorites</p>
+     <div class="container">  
+    <div class="border-t-8 w-screen pt-10 flex justify-evenly pb-10">
+
+<!-- CARD-1 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- CARD-2 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- CARD-3 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- CARD-4 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="container">
+        <div class="w-screen pt-10 flex justify-evenly pb-10">
+<!-- CARD-5 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- CARD-6 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- CARD-7 -->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+<!-- CARD-8-->
+        <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+          <div class="inline-flex pointer-events-none">
+            <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                <p class="text-gray-600">{{type}}</p>
+            </div>
+          </div>
+
+          <div class="flex justify-center">
+            <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+          </input>
+          </div>
+  
+        <!-- Details Card (initially hidden) -->
+          <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+            style="display: none;">
+            <div class="pointer-events-none">
+              <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+              <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+              <p id="type" class="text-gray-600">{{type}}</p>
+              <p id="muscle" class="text-gray-600">{{muscle}}</p>
+              <p id="equipment" class="text-gray-600">{{equipment}}</p>
+              <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+              <p id="instructions" class="text-gray-600">{{instructions}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-        <p class="mx-8 text-3xl pb-2">Favorites</p>
-    <div class="border-t-8 pt-10 flex justify-evenly h-72 pb-10">
-
-        <div class="flex border w-48">
-        <img class="h-8" src="./public/images/add-to-favorites.png">
-        <div>
-            <p>Card1</p>
         </div>
-        </div>
-        <div class="flex border w-48">
-        <img class="h-8" src="./public/images/add-to-favorites.png">
-        <div>
-          <p>Card2</p>
-        </div>
-        </div>
-        <div class="flex border w-48">
-        <img class="h-8" src="./public/images/add-to-favorites.png">
-        <div>
-            <p>Card3</p>
-        </div>
-        </div>
-        <div class="flex border w-48">
-        <img class="h-8" src="./public/images/add-to-favorites.png">
-        <div>
-            <p>Card4</p>
-        </div>
-        </div>
-    </div>
-    <div class="pt-10 flex justify-evenly h-72 pb-10">
-
-        <div class="flex border w-48">
-            <img class="h-8" src="./public/images/add-to-favorites.png">
-            <div>
-                <p>Card1</p>
-            </div>
-            </div>
-            <div class="flex border w-48">
-            <img class="h-8" src="./public/images/add-to-favorites.png">
-            <div>
-              <p>Card2</p>
-            </div>
-            </div>
-            <div class="flex border w-48">
-            <img class="h-8" src="./public/images/add-to-favorites.png">
-            <div>
-                <p>Card3</p>
-            </div>
-            </div>
-            <div class="flex border w-48">
-            <img class="h-8" src="./public/images/add-to-favorites.png">
-            <div>
-                <p>Card4</p>
-            </div>
-            </div>
-    </div>
-</body>
+      </div>
+    </main>
+  </body>
 </html>

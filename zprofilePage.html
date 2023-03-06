@@ -1,96 +1,458 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>BREAK SWEAT</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css"
+    />
+    <link rel="stylesheet" href="/public/css/style.css" />
 
-<head>
-  <title>BREAK SWEAT</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.4/tailwind.min.css" />
-  <link rel="stylesheet" href="/public/css/style.css" />
-  <style>
-    .divider {
-      border-right: 1px solid #a0aec0;
-    }
-  </style>
-</head>
+    <style>
+      .divider {
+        border-right: 1px solid #a0aec0;
+      }
+    </style>
+  </head>
+  <body class="bg-body">
+    <nav class="flex items-center justify-between flex-wrap bg-neptune p-6">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <img class="w-52" src="./public/images/breaksweatlogo.svg" />
+      </div>
+      <div class="block lg:hidden">
+        <button
+          class="flex items-center px-3 py-2 border rounded text-white border-white hover:text-white hover:border-white"
+        >
+          <svg
+            class="fill-current h-3 w-3"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 7h20v2H0V10zm0 7h20v2H0v-2z" />
+          </svg>
+        </button>
+      </div>
+      <div class="mx-10 block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-2xl lg:flex-grow">
+          <a
+            href="#menu-option-1"
+            class="block underline mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster mr-4"
+          >
+            My Profile
+          </a>
+          <a
+            href="#menu-option-2"
+            class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster mr-4"
+          >
+            Favorites
+          </a>
+          <a
+            href="#menu-option-3"
+            class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster mr-4"
+          >
+            Search
+          </a>
+          <a
+            href="#menu-option-4"
+            class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster"
+          >
+            Log Out
+          </a>
+        </div>
+        <div>
+          <a
+            href="#forums"
+            class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0"
+            >Forums</a
+          >
+        </div>
+      </div>
+    </nav>
 
-<body class="bg-body">
-  <nav class="flex items-center justify-between flex-wrap bg-neptune p-6">
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
-      <img class="w-52" src="./public/images/breaksweatlogo.svg">
-    </div>
-    <div class="block lg:hidden">
-      <button
-        class="flex items-center px-3 py-2 border rounded text-white border-white hover:text-white hover:border-white">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 7h20v2H0V10zm0 7h20v2H0v-2z" />
-        </svg>
-      </button>
-    </div>
-    <div class="mx-10 block flex-grow lg:flex lg:items-center lg:w-auto">
-      <div class="text-2xl lg:flex-grow">
-        <a href="#menu-option-1"
-          class="block underline mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster mr-4">
-          My Profile
-        </a>
-        <a href="#menu-option-2" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster mr-4">
-          Favorites
-        </a>
-        <a href="#menu-option-3" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster mr-4">
-          Search
-        </a>
-        <a href="#menu-option-4" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-strikemaster">
-          Log Out
-        </a>
+    <div class="flex flex-wrap">
+      <div class="w-3/12 p-6 divider">
+        <div>
+          <img
+            class="rounded-full mx-auto border-black border shadow-md"
+            src="./public/images/photo_placeholder.png"
+            width="250"
+            alt="profile-pic-placeholder"
+          />
+          <h5 class="text-gray-800 text-center mb-2 mt-4 text-xl leading-tight">
+            {Name}
+          </h5>
+          <p class="text-gray-800 text-sm pb-2 border-b-4 text-center">
+            {@UserName}
+          </p>
+        </div>
+        <div>
+          <!-- ADD LOGIC TO UNDERLINE EACH DAY OF WEEK THAT THE USER WORKED OUT, USE BLACK TO UNDERLINE -->
+          <h3 class="text-gray-800 text-2xl pb-3 pt-4">Week In Review</h3>
+          <p class="text-white pb-4 text-lg text-center">
+            <span class="mx-4 text-neptune font-bold underline">M</span>
+            <span class="mx-5">W</span>
+            <span class="mx-4">Th</span>
+            <span class="mx-4 text-neptune font-bold underline">F</span>
+            <span class="mx-4 text-neptune font-bold underline">S</span>
+          </p>
+        </div>
+        <div class="container flex justify-between">
+          <p class="text-gray-800">
+            <img class="w-8 pt-6 pb-2" src="./public/images/excercise.png" />
+            {Time}
+          </p>
+          <p class="text-gray-800">
+            <img class="w-8 pt-6 pb-2" src="./public/images/distance.png" />
+            {Distance}
+          </p>
+          <p class="text-gray-800">
+            <img class="w-8 pt-6 pb-2" src="./public/images/calories.png" />
+            {Calories}
+          </p>
+        </div>
       </div>
-      <div>
-        <a href="#forums"
-          class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">Forums</a>
-      </div>
-    </div>
-  </nav>
+      <div class="w-full md:w-2/3 p-6">
+        <body class="bg-gray-800 text-white">
+          <header class="py-5">
+            <div class="container mx-auto">
+              <h1 class="text-3xl font-bold text-neptune drop-shadow-lg">
+                Search Exercises
+              </h1>
+            </div>
+          </header>
 
-  <div class="flex flex-wrap">
-    <div class="w-full md:w-1/3 p-6 divider">
-      <img class="w-2/3 rounded-lg border-black border shadow-md mx-16" src="./public/images/photo_placeholder.png"
-        alt="profile-pic-placeholder" />
-      <p class="text-white text-lg pb-2 text-center">{Name}</p>
-      <p class="text-white text-sm pb-2 border-b-4 text-center">{@UserName}</p>
-      <br />
-      <div>
-        <!-- ADD LOGIC TO UNDERLINE EACH DAY OF WEEK THAT THE USER WORKED OUT, USE BLACK TO UNDERLINE -->
-        <h3 class="text-white text-2xl pb-3">Week In Review</h3>
-        <p class="text-white pb-4 text-lg text-center">
-          <span class="mx-4">M</span>
-          <span class="mx-5">W</span>
-          <span class="mx-4">Th</span>
-          <span class="mx-4">F</span>
-          <span class="mx-4">S</span>
-        </p>
-      </div>
-      <div class="container flex justify-between">
-        <p class="text-white">
-          <img class="w-8 pt-6 pb-2" src="./public/images/excercise.png" />
-          {Time}
-        </p>
-        <p class="text-white">
-          <img class="w-8 pt-6 pb-2" src="./public/images/distance.png" />
-          {Distance}
-        </p>
-        <p class="text-white">
-          <img class="w-8 pt-6 pb-2" src="./public/images/calories.png" />
-          {Calories}
-        </p>
-      </div>
-    </div>
-    <div class="w-full md:w-2/3 p-6">
-      <a href="#previous-workouts"
-        class="block bg-white hover:bg-strikemaster text-neptune font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Previous
-        Workouts</a>
-      <a href="#suggested-areas"
-        class="block bg-white hover:bg-strikemaster text-neptune font-bold py-2 px-4 rounded my-4 mx-auto text-center w-1/2">Suggested
-        Areas</a>
-    </div>
-  </div>
-</body>
+          <main class="pb-10">
+            <div
+              class="container mx-auto border rounded-lg bg-white p-10 shadow-lg"
+            >
+              <div class="radio-group">
+                <label
+                  ><input
+                    class="mr-1"
+                    type="radio"
+                    id="name-radio"
+                    name="search-option"
+                    value="name"
+                  />Name</label
+                >
+                <label
+                  ><input
+                    class="mr-1 ml-3"
+                    type="radio"
+                    id="type-radio"
+                    name="search-option"
+                    value="type"
+                  />Type</label
+                >
+                <label
+                  ><input
+                    class="mr-1 ml-3"
+                    type="radio"
+                    id="muscle-radio"
+                    name="search-option"
+                    value="muscle"
+                  />Muscle</label
+                >
+              </div>
 
+              <div class="search-bar flex pt-5" id="name-search">
+                <div class="w-full flex items-center">
+                  <input
+                    type="text"
+                    class="w-full rounded-lg border border-gray-400 p-2"
+                    placeholder="Search ..."
+                  />
+                  <button
+                    class="ml-2 rounded-lg bg-blue-500 p-2 text-white hover:bg-blue-600"
+                  >
+                    Search
+                  </button>
+                </div>
+              </div>
+
+              <div class="dropdown pt-5" id="type-dropdown">
+                <select class="w-full rounded-lg border border-gray-400 p-2">
+                  <option value="">Select type</option>
+                  <option value="cardio">Cardio</option>
+                  <option value="olympic_weightlifting">
+                    Olympic Weightlifting
+                  </option>
+                  <option value="plyometrics">Plyometrics</option>
+                  <option value="powerlifting">Powerlifting</option>
+                  <option value="strength">Strength</option>
+                  <option value="stretching">Stretching</option>
+                  <option value="strongman">Strongman</option>
+                </select>
+              </div>
+
+              <div class="dropdown pt-5" id="muscle-dropdown">
+                <select class="w-full rounded-lg border border-gray-400 p-2">
+                  <option value="">Select muscle</option>
+                  <option value="abdominals">Abdominals</option>
+                  <option value="abductors">Abductors</option>
+                  <option value="adductors">Adductors</option>
+                  <option value="biceps">Biceps</option>
+                  <option value="calves">Calves</option>
+                  <option value="chest">Chest</option>
+                  <option value="forearms">Forearms</option>
+                  <option value="glutes">Glutes</option>
+                  <option value="hamstrings">Hamstrings</option>
+                  <option value="lats">Lats</option>
+                  <option value="lower_back">Lower back</option>
+                  <option value="middle_back">Middle back</option>
+                  <option value="neck">Neck</option>
+                  <option value="quadriceps">Quadriceps</option>
+                  <option value="traps">Traps</option>
+                  <option value="triceps">Triceps</option>
+                </select>
+              </div>
+              
+            </div>
+            <p class="mx-8 text-lg pt-6 pb-3 text-gray-800">Search Results</p>
+            <div class="border-t-8 pt-10 flex justify-evenly pb-10">
+<!-- CARD-1 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- CARD-2 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- CARD-3 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- CARD-4 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+
+            <p class="mx-8 text-lg pt-6 pb-3 text-gray-800">Recommended Exercises</p>
+            <div class="border-t-8 pt-10 flex justify-evenly pb-10">
+        
+<!-- CARD-1 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- CARD-2 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- CARD-3 -->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+<!-- CARD-4-->
+              <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer">
+                <div class="inline-flex pointer-events-none">
+                  <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+                      <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+                      <p class="text-gray-600">{{type}}</p>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <input type="image" src="./public/images/add-to-favorites.png" id="add-favorites" class="h-10 absolute" data-id="{{id}}">
+                </input>
+                </div>
+        
+              <!-- Details Card (initially hidden) -->
+                <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+                  style="display: none;">
+                  <div class="pointer-events-none">
+                    <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+                    <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+                    <p id="type" class="text-gray-600">{{type}}</p>
+                    <p id="muscle" class="text-gray-600">{{muscle}}</p>
+                    <p id="equipment" class="text-gray-600">{{equipment}}</p>
+                    <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+                    <p id="instructions" class="text-gray-600">{{instructions}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+        </body>
+      </div>
+    </div>
+    <script src="/profile.js"></script>
+  </body>
 </html>
