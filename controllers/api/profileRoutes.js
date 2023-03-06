@@ -27,7 +27,7 @@ router.get('/bmi-chart-details', withAuth, async (req, res) => {
 router.post('/search', withAuth, async (req, res) => {
   try {
     const exerciseData = await getExercises(req.body.param, req.body.val, req.body.offset);
-    console.log(exerciseData);
+    // console.log(exerciseData);
 
     const searchResultsCards = Handlebars.compile(`
     <button id="prev-button" data-offset="0" class="paginate searches w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">

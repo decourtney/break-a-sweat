@@ -44,33 +44,6 @@ const signupFormHandler = async (event) => {
   }
 };
 
-// Dont need this anymore with Sequelize custom messages
-// const checkResponse = (response) => {
-//   let msg = ''
-//   console.log(response.errors[0].message);
-//   response.errors.forEach(element => {
-//     switch (element.message) {
-//       case 'Validation not on username failed':
-//         msg += `!--Username can not contain special characters--!`;
-//         break;
-//       case 'Validation len on password failed':
-//         msg += `!--Password must be at least 8 characters--!`;
-//         break;
-//       case 'Validation isEmail on email failed':
-//         msg += `!--Not a valid email--!`;
-//         break;
-//       case 'email must be unique':
-//         msg += `!--Not a valid email--!`;
-//         break;
-//       default:
-//         msg = `Oops! Something went wrong`;
-//     }
-//   });
-
-//   return msg;
-// }
-
-
 // Handle 
 const modal = document.getElementById("modal");
 

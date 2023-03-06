@@ -18,39 +18,6 @@ router.get('/', async (req, res) => {
 });
 
 
-// This route is used for testing Data pulls
-// Favorites right now
-// router.get('/', withAuth, async (req, res) => {
-//   try {
-
-
-//     // const favoritesData = await Exercise.findAll({
-//     //   include: {
-//     //     model: User,
-//     //     as: 'favorites_user',
-//     //     where: {id: req.session.user_id}
-//     //   },
-//     //   limit: 5
-//     // })
-
-//     // const favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
-
-//     // console.log(favorites);
-//     // console.log(randoms);
-
-//     res.render('profile', {
-//       // favorites,
-//       // randoms,
-//       partial: 'favorites-details',
-//       logged_in: req.session.logged_in
-//     })
-//   } catch (err) {
-//     // res.status(500).json(err);
-//     console.error(err);
-//     res.status(500).send({ error: 'An error occurred while searching for exercises.' });
-//   }
-// });
-
 router.get('/profile', withAuth, async (req, res) => {
   try {
     res.render('profile', {
