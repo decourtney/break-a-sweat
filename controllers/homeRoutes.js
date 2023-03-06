@@ -16,9 +16,8 @@ router.get('/', async (req, res) => {
     res.status(404).end();
   }
 });
-router.get("/favorites",(req,res)=>{
-  res.render("favorites")
-})
+
+
 // This route is used for testing Data pulls
 // Favorites right now
 // router.get('/', withAuth, async (req, res) => {
@@ -76,12 +75,12 @@ router.get('/profile/favorites', withAuth, async (req, res) => {
   }
 });
 
-router.get('/profile/charts', withAuth, async (req, res) => {
+router.get('/profile/analytics', withAuth, async (req, res) => {
   try {
 
 
     res.render('profile', {
-      partial: 'charts-details.handlebars',
+      partial: 'analytics-details',
       logged_in: req.session.logged_in
     })
   } catch (err) {
