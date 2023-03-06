@@ -3,8 +3,11 @@ const favoritesResultDiv = document.querySelector('#favorite-results');
 const randomResultDiv = document.querySelector('#random-results');
 
 const init = () => {
-  getFavorites();
-  getRandoms();
+  sessionStorage.setItem(`searches-offset`, 0);
+  sessionStorage.setItem(`favorites-offset`, 0);
+  sessionStorage.setItem(`randoms-offset`, 0);
+  getFavoritesHandler();
+  getRandomsHandler();
 }
 
 const searchFormHandler = async (event, offset = 0) => {
@@ -32,8 +35,9 @@ const searchFormHandler = async (event, offset = 0) => {
   }
 };
 
-const getFavorites = async (offset = 0) => {
+const getFavoritesHandler = async (event, offset = 0) => {
   try {
+    console.log('This is the offset passed to getFavoritesHandler: ' + offset);
     const response = await fetch('/api/users/get-favorites', {
       method: 'POST',
       body: JSON.stringify({ offset }),
@@ -41,15 +45,22 @@ const getFavorites = async (offset = 0) => {
     });
 
     if (response.ok) {
-      const newHTML = await response.text();
+      let res = await response.json();
+      // console.log(res);
+
+      const newHTML = await res.newHTML;
       favoritesResultDiv.innerHTML = newHTML;
+
+      if (res.eol) {
+        sessionStorage.setItem('favorites-offset', 0);
+      }
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-const getRandoms = async (offset = 0) => {
+const getRandomsHandler = async (event, offset = 0) => {
   try {
     const response = await fetch('/api/profile/get-randoms', {
       method: 'POST',
@@ -71,13 +82,13 @@ const addFavoritesHandler = async (el) => {
   console.log(infoDiv);
 
   const favInfo = {
-    id: infoDiv.querySelector("#add-favorites").dataset.id,
-    name: infoDiv.querySelector("#name").textContent.trim(),
-    type: infoDiv.querySelector("#type").textContent.trim(),
-    muscle: infoDiv.querySelector("#muscle").textContent.trim(),
-    equipment: infoDiv.querySelector("#equipment").textContent.trim(),
-    difficulty: infoDiv.querySelector("#difficulty").textContent.trim(),
-    instructions: infoDiv.querySelector("#instructions").textContent.trim(),
+    // id: infoDiv.querySelector("#add-favorites").dataset.id,
+    name: infoDiv.querySelector("#overlay #name").textContent.trim(),
+    type: infoDiv.querySelector("#overlay #type").textContent.trim(),
+    muscle: infoDiv.querySelector("#overlay #muscle").textContent.trim(),
+    equipment: infoDiv.querySelector("#overlay #equipment").textContent.trim(),
+    difficulty: infoDiv.querySelector("#overlay #difficulty").textContent.trim(),
+    instructions: infoDiv.querySelector("#overlay #instructions").textContent.trim(),
   };
   console.log(favInfo);
 
@@ -88,34 +99,50 @@ const addFavoritesHandler = async (el) => {
       headers: { 'Content-type': 'application/json' },
     });
 
-    if(response.ok){
+    if (response.ok) {
       console.log(response);
-    }  
+    }
   } catch (error) {
     console.log(error);
   }
 };
 
 const getPaginate = (paginate) => {
-  // console.log(paginate);
-  const offset = parseInt(paginate.dataset.offset);
   let newOffset = 0;
+  let storageKey = '';
+  let methodToCall;
 
-  if (paginate.id === 'prev-button') {
-    newOffset = Math.max(offset - 5, 0)
-  } else {
-    newOffset = Math.max(offset + 5, 0)
+  if (paginate.target.classList.contains('favorites')) {
+    storageKey = 'favorites';
+    methodToCall = getFavoritesHandler;
+  }
+  if (paginate.target.classList.contains('randoms')) {
+    storageKey = 'randoms';
+    methodToCall = getRandomsHandler;
+  }
+  if (paginate.target.classList.contains('searches')) {
+    storageKey = 'searches';
+    methodToCall = searchFormHandler;
   }
 
-  paginate.dataset.offset = newOffset;
+  let sessionOffset = parseInt(sessionStorage.getItem(`${storageKey}-offset`));
+  if (!sessionOffset) {
+    sessionStorage.setItem(`${storageKey}-offset`, 0);
+    sessionOffset = 0;
+  }
+  console.log(`This is the value of the ${storageKey}-offset in sessionStorage: ` + sessionStorage.getItem(`${storageKey}-offset`));
 
-  if (paginate.classList.contains('favorites'))
-    getFavorites(newOffset);
-  if (paginate.classList.contains('randoms'))
-    getRandoms(newOffset);
-  if (paginate.classList.contains('searches'))
-    searchFormHandler(paginate, newOffset);
+  if (paginate.target.id === 'prev-button') {
+    // console.log('SUBTRACT 5 from offset');
+    newOffset = Math.max(sessionOffset - 5, 0);
+  } else {
+    // console.log('ADD 5 to offset');
+    newOffset = Math.max(sessionOffset + 5, 0);
+  }
 
+  sessionStorage.setItem(`${storageKey}-offset`, newOffset);
+
+  methodToCall(paginate, newOffset);
 }
 
 const handleClickEvents = (event) => {
@@ -123,23 +150,27 @@ const handleClickEvents = (event) => {
   const tar = event.target;
 
   // If next/previous button clicked
-  if (tar.classList.contains('paginate')) {
-    getPaginate(event.target);
+  if (tar.classList.contains('paginate')) { // make sure paginates work correctly. from click to api call
+    getPaginate(event);
+    return;
   }
 
   if (tar.id === 'add-favorites') {
     // console.log(event.target)
-    addFavoritesHandler(event.target.closest("#exercise-card"))
+    addFavoritesHandler(event.target.closest("#exercise-card"));
+    return;
   }
 
   // If an exercise card is clicked
   if (tar.id === 'exercise-card') {
     const overlay = tar.querySelector('#overlay');
     overlay.style.display = 'flex';
+    return;
   }
 
   if (tar.id === 'overlay') {
     tar.style.display = 'none';
+    return;
   }
 };
 
@@ -151,4 +182,5 @@ favoritesResultDiv.addEventListener('click', handleClickEvents);
 searchResultsDiv.addEventListener('click', handleClickEvents);
 randomResultDiv.addEventListener('click', handleClickEvents);
 
+// When the page loads init will load favorites and suggested(random) exercises
 init();

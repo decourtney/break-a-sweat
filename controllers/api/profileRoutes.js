@@ -6,18 +6,26 @@ const Handlebars = require('handlebars');
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    // const userFavorites = await UserFavorite.
 
-      res.status(200).json(newProject);
+    res.status(200).json(newProject);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.get('/bmi-chart-details', withAuth, async (req, res) => {
+// Gets the users data then all other users relevant info
+router.get('/chart-info', withAuth, async (req, res) => {
   try {
-    const userData = await User.findByPk(req.session.user_id);
+    // { age: 25, weight: 70, height: 170, bmi: 23, exerciseDuration: 30, weightsUsed: [10, 15, 20] },
+    const user = await User.findByPk(1 /*req.session.user_id*/, {
+      attributes: ['username', 'age', 'weight', 'height', 'bmi']
+    });
 
+    const members = await User.findAll({
+      attributes: ['age', 'weight', 'height', 'bmi']
+    });
+
+    res.status(201).json([user, members]);
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);
@@ -31,41 +39,41 @@ router.post('/search', withAuth, async (req, res) => {
     console.log(exerciseData);
 
     const searchResultsCards = Handlebars.compile(`
-    <button id="prev-button" data-offset="0" class="paginate seraches w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
+    <button id="prev-button" data-offset="0" class="paginate searches w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M15 18l-6-6 6-6"></path></svg>
     </button>
 
     {{#each results}}
-    {{!-- Exercise Card --}}
-    <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer" style="width: 80%">
-      <div class="inline-flex pointer-events-none">
-        <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
-            <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
-            <p class="text-gray-600">{{type}}</p>
+      {{!-- Exercise Card --}}
+      <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer" style="width: 80%">
+        <div class="inline-flex pointer-events-none">
+          <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6">
+              <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
+              <p class="text-gray-600">{{type}}</p>
+          </div>
         </div>
-      </div>
 
-      <div class="flex justify-center pt-4">
-        <button id="add-favorites" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-id="{{id}}">
-          Add to favorites
-        </button>
-      </div>
+        <div class="flex justify-center pt-4">
+          <button id="add-favorites" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-id="{{id}}">
+            Add to favorites
+          </button>
+        </div>
 
-      {{!-- Details Card (initially hidden) --}}
-      <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
-        style="display: none;">
-        <div class="pointer-events-none">
-          <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
-          <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
-          <p id="type" class="text-gray-600">{{type}}</p>
-          <p id="muscle" class="text-gray-600">{{muscle}}</p>
-          <p id="equipment" class="text-gray-600">{{equipment}}</p>
-          <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
-          <p id="instructions" class="text-gray-600">{{instructions}}</p>
+        {{!-- Details Card (initially hidden) --}}
+        <div id="overlay" class="card fixed top-0 left-0 w-full h-full flex items-center justify-center"
+          style="display: none;">
+          <div class="pointer-events-none">
+            <div class="w-64 h-64 bg-white shadow-lg rounded-lg p-6">
+            <h2 id="name" class="text-lg font-medium mb-4">{{name}}</h2>
+            <p id="type" class="text-gray-600">{{type}}</p>
+            <p id="muscle" class="text-gray-600">{{muscle}}</p>
+            <p id="equipment" class="text-gray-600">{{equipment}}</p>
+            <p id="difficulty" class="text-gray-600">{{difficulty}}</p>
+            <p id="instructions" class="text-gray-600">{{instructions}}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     {{/each}}
 
     <button id="next-button" data-offset="0" class="paginate searches w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 ml-4">
@@ -90,18 +98,18 @@ router.post('/get-randoms', withAuth, async (req, res) => {
 
     const randomResultsCards = Handlebars.compile(`
     <button id="prev-button" data-offset="0" class="paginate randoms w-12 h-12 rounded-full bg-gray-200 hover:bg-gray-300 mr-4">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none"><path d="M15 18l-6-6 6-6"></path></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mx-auto my-auto pointer-events-none">
+        <path d="M15 18l-6-6 6-6"></path>
+      </svg>
     </button>
 
-    {{#each results limit=5}}
+    {{#each results}}
     {{!-- Exercise Card --}}
     <div id="exercise-card" class="card flex overflow-x-hidden cursor-pointer" style="width: 80%">
       <div class="inline-flex pointer-events-none">
         <div class="w-64 h-64 bg-gray-100 shadow-lg rounded-lg p-6" id="card1">
-          <div class="">
             <h2 class="text-lg font-medium mb-4 user-select-none">{{name}}</h2>
             <p class="text-gray-600">{{type}}</p>
-          </div>
         </div>
       </div>
 
