@@ -1,6 +1,20 @@
+// Divs for card insertions
 const searchResultsDiv = document.querySelector('#search-results');
 const favoritesResultDiv = document.querySelector('#favorite-results');
 const randomResultDiv = document.querySelector('#random-results');
+
+// Get the radio buttons and the search bar
+const nameRadio = document.getElementById('name-radio');
+const typeRadio = document.getElementById('type-radio');
+const muscleRadio = document.getElementById('muscle-radio');
+const searchBar = document.getElementById('name-search');
+const typeSelect = document.getElementById('type-dropdown');
+const muscleSelect = document.getElementById('muscle-dropdown');
+
+// Hide the search bar and select elements by default
+searchBar.style.display = 'none';
+typeSelect.style.display = 'none';
+muscleSelect.style.display = 'none';
 
 const init = () => {
   sessionStorage.setItem(`searches-offset`, 0);
@@ -13,10 +27,16 @@ const init = () => {
 const searchFormHandler = async (event, offset = 0) => {
   if (event) { event.preventDefault(); }
 
-  const param = document.querySelector('#search-criteria').value.trim();
+  let param = '';
+  const radioButtons = document.getElementsByName('search-criteria');
+  for (let i = 0; i < radioButtons.length; i++){
+    if (radioButtons[i].checked){
+      param = radioButtons[i].value.trim();
+    }
+  }
   const val = document.querySelector('#search-term').value.trim();
 
-  console.log(`These are the params from html ` + param, val)
+  // console.log(`These are the params from html ` + param, val)
   if (param && val) {
     try {
       const response = await fetch('/api/profile/search', {
@@ -37,7 +57,7 @@ const searchFormHandler = async (event, offset = 0) => {
 
 const getFavoritesHandler = async (event, offset = 0) => {
   try {
-    console.log('This is the offset passed to getFavoritesHandler: ' + offset);
+    // console.log('This is the offset passed to getFavoritesHandler: ' + offset);
     const response = await fetch('/api/users/get-favorites', {
       method: 'POST',
       body: JSON.stringify({ offset }),
@@ -79,7 +99,7 @@ const getRandomsHandler = async (event, offset = 0) => {
 
 const addFavoritesHandler = async (el) => {
   const infoDiv = el
-  console.log(infoDiv);
+  // console.log(infoDiv);
 
   const favInfo = {
     // id: infoDiv.querySelector("#add-favorites").dataset.id,
@@ -90,7 +110,7 @@ const addFavoritesHandler = async (el) => {
     difficulty: infoDiv.querySelector("#overlay #difficulty").textContent.trim(),
     instructions: infoDiv.querySelector("#overlay #instructions").textContent.trim(),
   };
-  console.log(favInfo);
+  // console.log(favInfo);
 
   try {
     const response = await fetch('/api/users/add-favorite', {
@@ -100,7 +120,7 @@ const addFavoritesHandler = async (el) => {
     });
 
     if (response.ok) {
-      console.log(response);
+      // console.log(response);
     }
   } catch (error) {
     console.log(error);
@@ -130,7 +150,7 @@ const getPaginate = (paginate) => {
     sessionStorage.setItem(`${storageKey}-offset`, 0);
     sessionOffset = 0;
   }
-  console.log(`This is the value of the ${storageKey}-offset in sessionStorage: ` + sessionStorage.getItem(`${storageKey}-offset`));
+  // console.log(`This is the value of the ${storageKey}-offset in sessionStorage: ` + sessionStorage.getItem(`${storageKey}-offset`));
 
   if (paginate.target.id === 'prev-button') {
     // console.log('SUBTRACT 5 from offset');
@@ -146,7 +166,7 @@ const getPaginate = (paginate) => {
 }
 
 const handleClickEvents = (event) => {
-  console.log(event)
+  // console.log(event)
   const tar = event.target;
 
   // If next/previous button clicked
@@ -178,9 +198,38 @@ document
   .querySelector('#search-form')
   .addEventListener('submit', searchFormHandler);
 
+  // Event listeners for submission forms
 favoritesResultDiv.addEventListener('click', handleClickEvents);
 searchResultsDiv.addEventListener('click', handleClickEvents);
 randomResultDiv.addEventListener('click', handleClickEvents);
+
+// Add a change event listener to the radio buttons
+nameRadio.addEventListener('change', function() {
+  // If the Name radio button is selected, show the search bar and hide the other select elements
+  if (nameRadio.checked) {
+    searchBar.style.display = 'block';
+    typeSelect.style.display = 'none';
+    muscleSelect.style.display = 'none';
+  }
+});
+
+typeRadio.addEventListener('change', function() {
+  // If the Type radio button is selected, show the type select element and hide the other elements
+  if (typeRadio.checked) {
+    typeSelect.style.display = 'block';
+    searchBar.style.display = 'block';
+    muscleSelect.style.display = 'none';
+  }
+});
+
+muscleRadio.addEventListener('change', function() {
+  // If the Muscle radio button is selected, show the muscle select element and hide the other elements
+  if (muscleRadio.checked) {
+    muscleSelect.style.display = 'block';
+    searchBar.style.display = 'block';
+    typeSelect.style.display = 'none';
+  }
+});
 
 // When the page loads init will load favorites and suggested(random) exercises
 init();

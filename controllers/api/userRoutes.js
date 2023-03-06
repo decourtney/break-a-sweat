@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(400).json(err);
   }
 });
@@ -103,9 +103,9 @@ router.post('/get-favorites', withAuth, async (req, res) => {
     let favorites = favoritesData.map((favorite) => favorite.get({ plain: true }));
     let eol = false;
 
-    console.log(favorites);
+    // console.log(favorites);
     if (favorites.length <= 0) {
-      console.log('NO MORE EXERCISES!');
+      // console.log('NO MORE EXERCISES!');
       eol = true;
       favorites = [
         {
@@ -172,19 +172,19 @@ router.post('/get-favorites', withAuth, async (req, res) => {
 // For adding an exercise to the users favorites
 router.post('/add-favorite', withAuth, async (req, res) => {
   const favInfo = req.body.favInfo;
-  console.log('This is the favInfo: ' + favInfo.name);
+  // console.log('This is the favInfo: ' + favInfo.name);
 
   try {
     const exercise = await Exercise.findOne({ where: { name: favInfo.name } });
-    console.log('Return from exercise.findone: ' + exercise)
+    // console.log('Return from exercise.findone: ' + exercise)
 
     if (exercise) {
       const favorite = await UserFavorite.findOne({ where: { user_id: req.session.user_id, exercise_id: exercise.id } });
-      console.log('Return from userfavorite.findone: ' + favorite)
+      // console.log('Return from userfavorite.findone: ' + favorite)
 
       if (!favorite) {
         // Exercise already exists and not in favorites then add
-        console.log('')
+        // console.log('')
         const newFavorite = await UserFavorite.create({
           userId: req.session.user_id,
           exerciseId: exercise.id
@@ -196,7 +196,7 @@ router.post('/add-favorite', withAuth, async (req, res) => {
       return res.status(201).send('That exercise is already favorited.');
     } else {
       // Exercise doesn't exist, create it and then create a new favorite object and associate it with the user
-      console.log('Exercise or Favorite doesnt exist, so creating new')
+      // console.log('Exercise or Favorite doesnt exist, so creating new')
       const newExercise = await Exercise.create({ ...favInfo });
       const newFavorite = await UserFavorite.create({
         userId: req.session.user_id,

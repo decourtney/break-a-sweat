@@ -7,7 +7,7 @@ const loginFormHandler = async (event) => {
 
   const form = document.querySelector('#login-form').reset();
 
-  console.log(username, password)
+  // console.log(username, password)
   try {
     if (username && password) {
       // Send a POST request to the API endpoint
