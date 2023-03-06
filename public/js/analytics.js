@@ -4,19 +4,25 @@ import('./analytics.js')
     // const ctx = canvas.getContext('2d');
 
     const userData = [
-      { age: 25, weight: 70, height: 170, bmi: 23, exerciseDuration: 30, weightsUsed: [10, 15, 20] },
-      { age: 30, weight: 75, height: 175, bmi: 25, exerciseDuration: 45, weightsUsed: [15, 20, 25] },
-      { age: 35, weight: 80, height: 180, bmi: 27, exerciseDuration: 60, weightsUsed: [20, 25, 30] },
-      { age: 40, weight: 85, height: 185, bmi: 29, exerciseDuration: 45, weightsUsed: [25, 30, 35] },
-      { age: 45, weight: 90, height: 190, bmi: 31, exerciseDuration: 30, weightsUsed: [30, 35, 40] }
+      { name: "John", age: 25, weight: 120, height: 69, bmi: 17.7, exerciseDuration: 30, weightsUsed: [10, 15, 20] },
+      { name: "Francisco", age: 28, weight: 190, height: 75, bmi: 23.7, exerciseDuration: 45, weightsUsed: [15, 20, 25] },
+      { name: "Christina", age: 40, weight: 140, height: 60, bmi: 27.3, exerciseDuration: 60, weightsUsed: [20, 25, 30] },
+      { name: "Alessandro", age: 32, weight: 200, height: 70, bmi: 28.7, exerciseDuration: 45, weightsUsed: [25, 30, 35] },
+      { name: "Josiah", age: 18, weight: 130, height: 64, bmi: 22.3, exerciseDuration: 30, weightsUsed: [30, 35, 40] },
+      { name: "Josh", age: 18, weight: 240, height: 70, bmi: 30.0, exerciseDuration: 30, weightsUsed: [30, 35, 40] }
     ];
+
+    const currentUserData = [
+      { name: "Irimar", age: 22, weight: 134, height: 61, bmi: 25.3, exerciseDuration: 30, weightsUsed: [10, 15, 20] }
+    ]
+   
 
     const chart1 = new Chart(document.getElementById("chart1").getContext("2d"), {
       type: 'scatter',
       data: {
         datasets: [{
-          label: 'User Data',
-          data: userData.map(user => ({ x: user.age, y: user.weight, r: user.bmi })),
+          label: 'Your Age and Weight',
+          data: currentUserData.map(user => ({ x: user.age, y: user.weight, r: user.bmi })),
           backgroundColor: 'rgba(255, 99, 132, 0.6)',
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1
@@ -37,7 +43,7 @@ import('./analytics.js')
             position: 'left',
             scaleLabel: {
               display: true,
-              labelString: 'Weight (kg)'
+              labelString: 'Weight (lb)'
             }
           }]
         },
@@ -52,21 +58,22 @@ import('./analytics.js')
       }
     });
 
+    
+
     const chart2 = new Chart(document.getElementById("chart2").getContext("2d"), {
-      type: 'line',
+      type: 'scatter',
       data: {
-        labels: userData.map(user => user.age),
         datasets: [{
-          label: 'Exercise Duration',
-          data: userData.map(user => user.exerciseDuration),
+          label: 'Your BMI',
+          data: currentUserData.map(user => ({ x: user.age, y: user.bmi })),
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
           borderColor: 'rgba(255, 99, 132, 1)',
-          borderWidth: 1,
-          fill: false
+          borderWidth: 1
         }]
       },
       options: {
         scales: {
-          xAxes: [{
+          x: [{
             type: 'linear',
             position: 'bottom',
             scaleLabel: {
@@ -74,45 +81,12 @@ import('./analytics.js')
               labelString: 'Age'
             }
           }],
-          yAxes: [{
+          y: [{
             type: 'linear',
             position: 'left',
             scaleLabel: {
               display: true,
-              labelString: 'Exercise Duration (minutes)'
-            }
-          }]
-        }
-      }
-    });
-
-    const chart3 = new Chart(document.getElementById("chart3").getContext("2d"), {
-      type: 'bar',
-      data: {
-        labels: userData.map(user => user.age),
-        datasets: [{
-          label: 'Exercise Duration',
-          data: userData.map(user => user.exerciseDuration),
-          backgroundColor: 'rgba(54, 162, 235, 0.6)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Age'
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Exercise Duration (minutes)'
+              labelString: 'Weight (lb)'
             }
           }]
         },
@@ -120,7 +94,7 @@ import('./analytics.js')
           callbacks: {
             label: (tooltipItem, data) => {
               const user = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-              return `Duration: ${user} minutes`;
+              return `BMI: ${user.r}`;
             }
           }
         }
@@ -150,7 +124,7 @@ import('./analytics.js')
     const chart4 = new Chart(document.getElementById("chart4").getContext("2d"), {
       type: 'pie',
       data: {
-        labels: ['Underweight', 'Normal', 'Overweight', 'Obese'],
+        labels: ['Underweight: <18.5', 'Normal: 18.5-24.9', 'Overweight: 25-29.9', 'Obese: 30+'],
         datasets: [{
           data: [
             bmiCategories.underweight,
@@ -168,11 +142,49 @@ import('./analytics.js')
         }
       }
     });
+    const chart3 = new Chart(document.getElementById("chart3").getContext("2d"), {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'All Users Ages and Weights',
+          data: userData.map(user => ({ x: user.age, y: user.weight, r: user.bmi })),
+          backgroundColor: 'rgba(255, 99, 132, 0.6)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          x: [{
+            type: 'linear',
+            position: 'bottom',
+            scaleLabel: {
+              display: true,
+              labelString: 'Age'
+            }
+          }],
+          y: [{
+            type: 'linear',
+            position: 'left',
+            scaleLabel: {
+              display: true,
+              labelString: 'Weight (lb)'
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem, data) => {
+              const user = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+              return `BMI: ${user.r}`;
+            }
+          }
+        }
+      }
+    });
 
   })
+  
   .catch(err => {
     console.log(err);
   });
-
-
-
