@@ -2,17 +2,11 @@ const router = require('express').Router();
 const { Exercise, User, UserFavorite } = require('../models');
 const withAuth = require('../utils/auth');
 const { getExercises, getRandomExercises } = require('../utils/apiService');
+const moment = require('moment');
 
 // Root Route
 router.get('/', async (req, res) => {
   try {
-<<<<<<< Updated upstream
-=======
-    if(!req.session.logged_in){
-      res.redirect('/login');
-    } 
-    //tutor says this will break roku deployment
->>>>>>> Stashed changes
 
     // Load Homepage
     res.render('homepage', {
@@ -60,8 +54,6 @@ router.get("/favorites",(req,res)=>{
 
 router.get('/profile', withAuth, async (req, res) => {
   try {
-
-
     res.render('profile', {
       partial: 'profile-main-details',
       logged_in: req.session.logged_in
@@ -70,7 +62,6 @@ router.get('/profile', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 router.get('/profile/favorites', withAuth, async (req, res) => {
   try {
 
@@ -106,6 +97,15 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+router.get('/profile/calendar', function(req, res) {
+  // Get the year and month from the query string
+  const year = parseInt(req.query.year);
+  const month = parseInt(req.query.month);
+
+  // Render the calendar using Handlebars
+  res.render('profile', { partial: 'calendar',year, month});
 });
 
 module.exports = router;
