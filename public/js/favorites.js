@@ -8,8 +8,8 @@ const nameRadio = document.getElementById('name-radio');
 const typeRadio = document.getElementById('type-radio');
 const muscleRadio = document.getElementById('muscle-radio');
 const searchBar = document.getElementById('name-search');
-const typeSelect = document.getElementById('type-dropdown');
-const muscleSelect = document.getElementById('muscle-dropdown');
+const typeSelect = document.getElementById('type-search');
+const muscleSelect = document.getElementById('muscle-search');
 
 // Hide the search bar and select elements by default
 searchBar.style.display = 'none';
@@ -27,14 +27,25 @@ const init = () => {
 const searchFormHandler = async (event, offset = 0) => {
   if (event) { event.preventDefault(); }
 
+  let val = '';
   let param = '';
+
+  // Get search type
   const radioButtons = document.getElementsByName('search-criteria');
-  for (let i = 0; i < radioButtons.length; i++){
-    if (radioButtons[i].checked){
+  for (let i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
       param = radioButtons[i].value.trim();
     }
   }
-  const val = document.querySelector('#search-term').value.trim();
+
+
+  // Get search value
+  if (param === 'name')
+    val = document.querySelector(`#${param}-search`).value.trim();
+  else {
+    val = document.querySelector(`#${param}-search select`).value.trim()
+  }
+  // console.log(val)
 
   // console.log(`These are the params from html ` + param, val)
   if (param && val) {
@@ -198,13 +209,13 @@ document
   .querySelector('#search-form')
   .addEventListener('submit', searchFormHandler);
 
-  // Event listeners for submission forms
+// Event listeners for submission forms
 favoritesResultDiv.addEventListener('click', handleClickEvents);
 searchResultsDiv.addEventListener('click', handleClickEvents);
 randomResultDiv.addEventListener('click', handleClickEvents);
 
 // Add a change event listener to the radio buttons
-nameRadio.addEventListener('change', function() {
+nameRadio.addEventListener('change', function () {
   // If the Name radio button is selected, show the search bar and hide the other select elements
   if (nameRadio.checked) {
     searchBar.style.display = 'block';
@@ -213,20 +224,20 @@ nameRadio.addEventListener('change', function() {
   }
 });
 
-typeRadio.addEventListener('change', function() {
+typeRadio.addEventListener('change', function () {
   // If the Type radio button is selected, show the type select element and hide the other elements
   if (typeRadio.checked) {
     typeSelect.style.display = 'block';
-    searchBar.style.display = 'block';
+    searchBar.style.display = 'none';
     muscleSelect.style.display = 'none';
   }
 });
 
-muscleRadio.addEventListener('change', function() {
+muscleRadio.addEventListener('change', function () {
   // If the Muscle radio button is selected, show the muscle select element and hide the other elements
   if (muscleRadio.checked) {
     muscleSelect.style.display = 'block';
-    searchBar.style.display = 'block';
+    searchBar.style.display = 'none';
     typeSelect.style.display = 'none';
   }
 });
