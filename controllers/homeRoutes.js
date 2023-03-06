@@ -4,6 +4,12 @@ const withAuth = require('../utils/auth');
 const { getExercises, getRandomExercises } = require('../utils/apiService');
 const moment = require('moment');
 
+let events = [
+  { title: 'Event 1', start: '2023-03-01', end: '2023-03-02', color: 'green' },
+  { title: 'Event 2', start: '2023-03-05', end: '2023-03-07', color: 'blue' },
+  { title: 'Event 3', start: '2023-03-15', end: '2023-03-17', color: 'red' }
+];
+
 // Root Route
 router.get('/', async (req, res) => {
   try {
@@ -104,8 +110,35 @@ router.get('/profile/calendar', function(req, res) {
   const year = parseInt(req.query.year);
   const month = parseInt(req.query.month);
 
+  const eventsForMonth = events.filter(function(event) {
+    const eventDate = moment(event.start);
+    return eventDate.year() === year && eventDate.month() === month - 1;
+  });
+
   // Render the calendar using Handlebars
-  res.render('profile', { partial: 'calendar',year, month});
+  res.render('profile', { partial: 'calendar',year, month, events: eventsForMonth});
 });
 
-module.exports = router;
+
+// Handle POST requests to add events
+router.post('/profile/calendar', function(req, res) {
+  const title = req.body.title;
+  const date = moment(req.body.date).format('YYYY-MM-DD');
+  
+  // Add the event to the events array
+  addEvent(title, date);
+
+  res.redirect('/profile/calendar');
+});
+
+// Define a function to add an event to the events array
+function addEvent(title, date) {
+  events.push({
+    title: title,
+    start: date,
+    color: 'purple'
+  });
+}
+
+
+module.exports = router,events;
