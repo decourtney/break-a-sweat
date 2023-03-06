@@ -7,16 +7,25 @@ const Handlebars = require('handlebars');
 router.get('/', withAuth, async (req, res) => {
   try {
 
-      res.status(200).json(newProject);
+    res.status(200).json(newProject);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.get('/bmi-chart-details', withAuth, async (req, res) => {
+// Gets the users data then all other users relevant info
+router.get('/chart-info', withAuth, async (req, res) => {
   try {
-    const userData = await User.findByPk(req.session.user_id);
+    // { age: 25, weight: 70, height: 170, bmi: 23, exerciseDuration: 30, weightsUsed: [10, 15, 20] },
+    const user = await User.findByPk(1 /*req.session.user_id*/, {
+      attributes: ['username', 'age', 'weight', 'height', 'bmi']
+    });
 
+    const members = await User.findAll({
+      attributes: ['age', 'weight', 'height', 'bmi']
+    });
+
+    res.status(201).json([user, members]);
   } catch (err) {
     // res.status(500).json(err);
     console.error(err);
