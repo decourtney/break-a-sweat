@@ -45,3 +45,31 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.radio-group {
+    display: flex;
+  }
+  
+  .radio-group label {
+    margin-right: 20px;
+  }
+  
+  .search-bar,
+  .dropdown {
+    display: none;
+    margin-top: 20px;
+  }
+  
+  .search-bar input[type="text"] {
+    width: 300px;
+    padding: 10px;
+  }
+  
+  .dropdown select {
+    width: 300px;
+    padding: 10px;
+  }
+  
+  .dropdown select option {
+    padding: 10px;
+  }
